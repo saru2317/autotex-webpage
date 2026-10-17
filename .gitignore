@@ -1,0 +1,14 @@
+﻿# Large raw CAD source files & raw slides
+Studio/
+old_backup/
+*.stp
+*.step
+*.pptx
+*.stl
+*.log
+
+# System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

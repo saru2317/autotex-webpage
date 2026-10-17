@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Tint Test</title>
+<style>
+  body {
+    background: #f0f2f5;
+    font-family: sans-serif;
+    padding: 40px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+  }
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .render-box {
+    position: relative;
+    width: 200px;
+    height: 380px;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tint-bg {
+    position: absolute;
+    inset: 0;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+    transition: background-color 0.3s ease;
+  }
+  .base-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+  .highlight-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: screen;
+    opacity: 0.25;
+    filter: brightness(1.2) contrast(1.4);
+    pointer-events: none;
+  }
+  h3 { margin: 12px 0 4px; font-size: 16px; font-weight: 700; color: #111; }
+  p { margin: 0; font-size: 13px; color: #666; }
+</style>
+</head>
+<body>
+
+  <!-- Red D-Spring -->
+  <div class="card">
+    <div class="render-box">
+      <div class="tint-bg" style="background-color: #ED1C24; mask-image: url('Image/d-spring-wt.png'); -webkit-mask-image: url('Image/d-spring-wt.png');"></div>
+      <img src="Image/d-spring-wt.png" class="base-layer" alt="D-Spring">
+      <img src="Image/d-spring-wt.png" class="highlight-layer" alt="">
+    </div>
+    <h3>D-SPRING</h3>
+    <p>Autotex Red · #ED1C24</p>
+  </div>
+
+  <!-- Green D-Stiff -->
+  <div class="card">
+    <div class="render-box">
+      <div class="tint-bg" style="background-color: #109948; mask-image: url('Image/d-stiff-wt.png'); -webkit-mask-image: url('Image/d-stiff-wt.png');"></div>
+      <img src="Image/d-stiff-wt.png" class="base-layer" alt="D-Stiff">
+      <img src="Image/d-stiff-wt.png" class="highlight-layer" alt="">
+    </div>
+    <h3>D-STIFF</h3>
+    <p>Emerald Green · #109948</p>
+  </div>
+
+  <!-- Yellow D-Cone -->
+  <div class="card">
+    <div class="render-box">
+      <div class="tint-bg" style="background-color: #FFDE00; mask-image: url('Image/d-cone-wt.png'); -webkit-mask-image: url('Image/d-cone-wt.png');"></div>
+      <img src="Image/d-cone-wt.png" class="base-layer" alt="D-Cone">
+      <img src="Image/d-cone-wt.png" class="highlight-layer" alt="">
+    </div>
+    <h3>D-CONE</h3>
+    <p>Electric Yellow · #FFDE00</p>
+  </div>
+
+</body>
+</html>
