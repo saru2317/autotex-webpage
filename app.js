@@ -991,15 +991,19 @@
     active3DMaterials = [mainMat, collarMat, innerMat];
 
     // Check if authentic manufacturing CAD GLB exists for this model
-    const hasCAD = (modelKey === 'd-spring' || modelKey === 'd-stiff');
-    const cadVersion = 'v=open_v3';
+    const hasCAD = (modelKey === 'd-spring' || modelKey === 'd-stiff' || modelKey === 'd-stack' || modelKey === 'd-cone' || modelKey === 's-cone');
+    const cadVersion = 'v=cad_v5';
     const cadPath = (modelKey === 'd-spring') ? `models/d_spring.glb?${cadVersion}` :
-                    (modelKey === 'd-stiff') ? `models/d_stiff.glb?${cadVersion}` : null;
+                    (modelKey === 'd-stiff') ? `models/d_stiff.glb?${cadVersion}` :
+                    (modelKey === 'd-stack') ? `models/d_stack.glb?${cadVersion}` :
+                    (modelKey === 'd-cone') ? `models/d_cone.glb?${cadVersion}` :
+                    (modelKey === 's-cone') ? `models/s_cone.glb?${cadVersion}` : null;
 
     if (hasCAD && gltfLoaderInstance && cadPath) {
       if (loadedCADGeometries[modelKey]) {
         // CAD already loaded and cached: clone and apply dynamic masterbatch material
         const cadClone = loadedCADGeometries[modelKey].clone(true);
+        const isSCone = (modelKey === 's-cone');
         cadClone.traverse((child) => {
           if (child.isMesh) {
             if (child.geometry && !child.geometry.attributes.normal) {
@@ -1007,8 +1011,10 @@
             }
             child.material = new THREE.MeshStandardMaterial({
               color: color,
-              roughness: 0.32,
+              roughness: isSCone ? 0.42 : 0.32,
               metalness: 0.05,
+              bumpMap: isSCone ? latticeTex : null,
+              bumpScale: isSCone ? 0.035 : 0.0,
               side: THREE.DoubleSide,
               clippingPlanes: (isCutawayActive && cutawayPlane) ? [cutawayPlane] : []
             });
@@ -1021,7 +1027,7 @@
         // Load CAD model asynchronously
         gltfLoaderInstance.load(cadPath, (gltf) => {
           const cadRoot = gltf.scene || gltf.scenes[0];
-          // Scale raw CAD dimensions (height ~169.0mm) to scene units (~17.0 units)
+          // Scale raw CAD dimensions (height ~169.0mm - 170.0mm) to scene units (~17.0 units)
           const cadScale = 0.1006;
           cadRoot.scale.set(cadScale, cadScale, cadScale);
           cadRoot.position.set(0, 0, 0);
