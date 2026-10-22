@@ -186,13 +186,15 @@
     compareCodeB: document.getElementById('compare-code-b'),
     // Studio Controls
     btnToggleCompare: document.getElementById('btn-toggle-compare'),
+    compareBtnText: document.getElementById('compare-btn-text'),
     btnToggleBackdrop: document.getElementById('btn-toggle-backdrop'),
     backdropBtnText: document.getElementById('backdrop-btn-text'),
+    stageActionIcon: document.getElementById('backdrop-action-icon'),
     btnStageDarkToggle: document.getElementById('btn-stage-dark-toggle'),
     stageToggleIcon: document.getElementById('stage-toggle-icon'),
     stageToggleLabel: document.getElementById('stage-toggle-label'),
     stageChipBtns: document.querySelectorAll('.stage-chip-btn'),
-    // Palette Search & Filter
+    // Palette & Swatches
     colorSearch: document.getElementById('color-search'),
     clearSearchBtn: document.getElementById('clear-search-btn'),
     filterPills: document.querySelectorAll('.filter-pill'),
@@ -292,8 +294,12 @@
 
     if (el.btnToggleBackdrop) {
       el.btnToggleBackdrop.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      el.btnToggleBackdrop.classList.toggle('active', isDark);
+      if (el.stageActionIcon) {
+        el.stageActionIcon.textContent = isDark ? '☀️' : '🌙';
+      }
       if (el.backdropBtnText) {
-        el.backdropBtnText.textContent = isDark ? 'Clean Studio Stage' : 'Dark Mill Stage';
+        el.backdropBtnText.textContent = isDark ? 'Light Studio Stage' : 'Dark Mill Stage';
       }
     }
 
@@ -399,10 +405,10 @@
       el.compareCodeB.textContent = `${compareColor.code} · ${compareColor.hex}`;
     }
 
-    // 7. Sync Custom Color Input Values
-    el.pickerPreviewBubble.style.backgroundColor = primaryColor.hex;
-    el.customColorPicker.value = primaryColor.hex.startsWith('#') && primaryColor.hex.length === 7 ? primaryColor.hex : '#ED1C24';
-    el.customHexInput.value = primaryColor.hex.replace('#', '').toUpperCase();
+    // 7. Sync Custom Color Input Values (if present)
+    if (el.pickerPreviewBubble) el.pickerPreviewBubble.style.backgroundColor = primaryColor.hex;
+    if (el.customColorPicker) el.customColorPicker.value = primaryColor.hex.startsWith('#') && primaryColor.hex.length === 7 ? primaryColor.hex : '#ED1C24';
+    if (el.customHexInput) el.customHexInput.value = primaryColor.hex.replace('#', '').toUpperCase();
 
     // 8. Update Swatches Selection Highlights
     renderSwatches();
@@ -453,47 +459,17 @@
   }
 
   /**
-   * Renders the swatch buttons based on search query and family filter
+   * Renders the swatch buttons for all 20 official supply shades in a single view
    */
   function renderSwatches() {
-    const q = searchQuery.trim().toLowerCase();
-    
-    const visibleColors = PALETTE.map((c, i) => ({ ...c, originalIndex: i })).filter(item => {
-      const matchFamily = activeFamilyFilter === 'All' || item.family === activeFamilyFilter;
-      const matchQuery = !q || 
-        item.name.toLowerCase().includes(q) || 
-        item.code.toLowerCase().includes(q) || 
-        (item.ral && item.ral.toLowerCase().includes(q)) || 
-        item.hex.toLowerCase().includes(q);
-      return matchFamily && matchQuery;
-    });
-
-    el.paletteCountBadge.textContent = `${visibleColors.length} SHADES`;
+    if (el.paletteCountBadge) {
+      el.paletteCountBadge.textContent = `${PALETTE.length} SHADES`;
+    }
+    if (!el.swatchesGrid) return;
     el.swatchesGrid.innerHTML = '';
 
-    if (visibleColors.length === 0) {
-      el.swatchesGrid.innerHTML = `
-        <div style="grid-column: 1 / -1; padding: 24px; text-align: center; color: var(--slate-400); font-size: 0.85rem;">
-          No matching shades found for "${searchQuery}".<br>
-          <button style="margin-top: 8px; color: var(--brand-red); background: transparent; border: none; font-weight: 700; cursor: pointer;" id="reset-filter-btn">Reset search filters</button>
-        </div>
-      `;
-      const resetBtn = document.getElementById('reset-filter-btn');
-      if (resetBtn) {
-        resetBtn.onclick = () => {
-          searchQuery = '';
-          el.colorSearch.value = '';
-          el.clearSearchBtn.hidden = true;
-          activeFamilyFilter = 'All';
-          el.filterPills.forEach(p => p.classList.toggle('active', p.dataset.family === 'All'));
-          renderSwatches();
-        };
-      }
-      return;
-    }
-
-    visibleColors.forEach(item => {
-      const isSelected = !customHexColor && (isComparing ? item.originalIndex === compareColorIndex : item.originalIndex === primaryColorIndex);
+    PALETTE.forEach((item, index) => {
+      const isSelected = !customHexColor && (isComparing ? index === compareColorIndex : index === primaryColorIndex);
 
       const btn = document.createElement('button');
       btn.className = `swatch-btn ${isSelected ? 'selected' : ''}`;
@@ -517,10 +493,10 @@
       btn.onclick = () => {
         customHexColor = null; // Clear custom color override
         if (isComparing) {
-          compareColorIndex = item.originalIndex;
-          showToast(`Compared: ${item.fullLabel} (${item.ral})`);
+          compareColorIndex = index;
+          showToast(`Candidate B: ${item.fullLabel} (${item.ral})`);
         } else {
-          primaryColorIndex = item.originalIndex;
+          primaryColorIndex = index;
           showToast(`Applied: ${item.fullLabel} (${item.ral})`);
         }
         updateStudio();
@@ -574,24 +550,29 @@
     }
   };
 
-  // Toggle Comparison Mode
-  el.btnToggleCompare.addEventListener('click', () => {
-    isComparing = !isComparing;
-    el.btnToggleCompare.setAttribute('aria-pressed', isComparing ? 'true' : 'false');
-    el.btnToggleCompare.querySelector('span').textContent = isComparing ? 'Exit Comparison' : 'Compare 2 Shades';
+  // Toggle Comparison Mode (in place of search)
+  if (el.btnToggleCompare) {
+    el.btnToggleCompare.addEventListener('click', () => {
+      isComparing = !isComparing;
+      el.btnToggleCompare.setAttribute('aria-pressed', isComparing ? 'true' : 'false');
+      el.btnToggleCompare.classList.toggle('active', isComparing);
+      if (el.compareBtnText) {
+        el.compareBtnText.textContent = isComparing ? 'Exit Comparison' : 'Compare Two Shades';
+      }
 
-    // Strictly toggle visibility
-    if (isComparing) {
-      el.stageSingle.style.display = 'none';
-      el.stageCompare.style.display = 'flex';
-    } else {
-      el.stageSingle.style.display = 'flex';
-      el.stageCompare.style.display = 'none';
-    }
+      // Strictly toggle visibility
+      if (isComparing) {
+        el.stageSingle.style.display = 'none';
+        el.stageCompare.style.display = 'flex';
+      } else {
+        el.stageSingle.style.display = 'flex';
+        el.stageCompare.style.display = 'none';
+      }
 
-    updateStudio();
-    showToast(isComparing ? 'Comparison mode activated. Select candidate color.' : 'Returned to single product stage');
-  });
+      updateStudio();
+      showToast(isComparing ? 'Comparison mode: Select second shade to compare' : 'Returned to 360° Studio');
+    });
+  }
 
   // Toggle Backdrop Mode (Clean Studio vs Industrial Dark)
   if (el.btnToggleBackdrop) {
@@ -602,7 +583,7 @@
     });
   }
 
-  // Floating Manual Dark Stage Toggle Button
+  // Floating Manual Dark Stage Toggle Button (if present)
   if (el.btnStageDarkToggle) {
     el.btnStageDarkToggle.addEventListener('click', () => {
       userHasManualBackdrop = true;
@@ -611,7 +592,7 @@
     });
   }
 
-  // Stage Backdrop Preset Chips (Light / Dark / Black)
+  // Stage Backdrop Preset Chips (if present)
   if (el.stageChipBtns) {
     el.stageChipBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -621,44 +602,54 @@
     });
   }
 
-  // Family Filter Pills
-  el.filterPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      activeFamilyFilter = pill.dataset.family;
-      el.filterPills.forEach(p => p.classList.toggle('active', p === pill));
+  // Family Filter Pills (if present)
+  if (el.filterPills && el.filterPills.length > 0) {
+    el.filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        activeFamilyFilter = pill.dataset.family;
+        el.filterPills.forEach(p => p.classList.toggle('active', p === pill));
+        renderSwatches();
+      });
+    });
+  }
+
+  // Search Input (if present)
+  if (el.colorSearch) {
+    el.colorSearch.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      if (el.clearSearchBtn) el.clearSearchBtn.hidden = !searchQuery;
       renderSwatches();
     });
-  });
+  }
 
-  // Search Input
-  el.colorSearch.addEventListener('input', (e) => {
-    searchQuery = e.target.value;
-    el.clearSearchBtn.hidden = !searchQuery;
-    renderSwatches();
-  });
+  if (el.clearSearchBtn) {
+    el.clearSearchBtn.addEventListener('click', () => {
+      searchQuery = '';
+      if (el.colorSearch) el.colorSearch.value = '';
+      el.clearSearchBtn.hidden = true;
+      renderSwatches();
+    });
+  }
 
-  el.clearSearchBtn.addEventListener('click', () => {
-    searchQuery = '';
-    el.colorSearch.value = '';
-    el.clearSearchBtn.hidden = true;
-    renderSwatches();
-  });
-
-  // Bespoke Color Picker
-  el.customColorPicker.addEventListener('input', (e) => {
-    const hex = e.target.value.toUpperCase();
-    applyBespokeColor(hex);
-  });
-
-  el.applyCustomHexBtn.addEventListener('click', () => {
-    let hex = el.customHexInput.value.trim().toUpperCase();
-    if (!hex.startsWith('#')) hex = '#' + hex;
-    if (/^#[0-9A-F]{6}$/i.test(hex)) {
+  // Bespoke Color Picker (if present)
+  if (el.customColorPicker) {
+    el.customColorPicker.addEventListener('input', (e) => {
+      const hex = e.target.value.toUpperCase();
       applyBespokeColor(hex);
-    } else {
-      alert('Please enter a valid 6-character hex code (e.g. ED1C24).');
-    }
-  });
+    });
+  }
+
+  if (el.applyCustomHexBtn) {
+    el.applyCustomHexBtn.addEventListener('click', () => {
+      let hex = el.customHexInput ? el.customHexInput.value.trim().toUpperCase() : '';
+      if (!hex.startsWith('#')) hex = '#' + hex;
+      if (/^#[0-9A-F]{6}$/i.test(hex)) {
+        applyBespokeColor(hex);
+      } else {
+        alert('Please enter a valid 6-character hex code (e.g. ED1C24).');
+      }
+    });
+  }
 
   function applyBespokeColor(hex) {
     customHexColor = hex;
@@ -1602,6 +1593,18 @@
       if (isCutawayActive) {
         toggleCutawayView();
       }
+      if (isComparing) {
+        isComparing = false;
+        el.stageSingle.style.display = 'flex';
+        el.stageCompare.style.display = 'none';
+        if (el.btnToggleCompare) {
+          el.btnToggleCompare.setAttribute('aria-pressed', 'false');
+          el.btnToggleCompare.classList.remove('active');
+        }
+        if (el.compareBtnText) {
+          el.compareBtnText.textContent = 'Compare Two Shades';
+        }
+      }
       smoothTransitionTo(0, 0, 1.0, 400, 0);
       showToast('360° View & Zoom reset to default');
     });
@@ -1755,13 +1758,14 @@
   applyStageTransform();
 
   // Download Specification Card (.txt formulation)
-  el.btnDownloadSpec.addEventListener('click', () => {
-    const prod = PRODUCTS[currentModelKey];
-    const color = customHexColor 
-      ? { name: 'Bespoke Mill Shade', code: 'AT-CUSTOM', hex: customHexColor, family: 'Custom' }
-      : PALETTE[primaryColorIndex];
+  if (el.btnDownloadSpec) {
+    el.btnDownloadSpec.addEventListener('click', () => {
+      const prod = PRODUCTS[currentModelKey];
+      const color = customHexColor 
+        ? { name: 'Bespoke Mill Shade', code: 'AT-CUSTOM', hex: customHexColor, family: 'Custom' }
+        : PALETTE[primaryColorIndex];
 
-    const content = `================================================================================
+      const content = `================================================================================
 AUTOTEX — DYE TUBES & CONES SPECIFICATION CARD
 Tested and Trusted, Globally... | www.autotex.net
 ================================================================================
@@ -1801,18 +1805,19 @@ MANUFACTURER CONTACT:
 ================================================================================
 `;
 
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `autotex-${prod.id}-${color.code.toLowerCase()}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 2000);
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `autotex-${prod.id}-${color.code.toLowerCase()}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
 
-    showToast('Formulation Card downloaded successfully!');
-  });
+      showToast('Formulation Card downloaded successfully!');
+    });
+  }
 
   // =========================================================================
   // 5. SAMPLE REQUEST MODAL
@@ -1838,8 +1843,12 @@ MANUFACTURER CONTACT:
     document.body.style.overflow = '';
   }
 
-  el.btnInquireSelection.addEventListener('click', window.openSampleModal);
-  el.openSampleModalBtn.addEventListener('click', window.openSampleModal);
+  if (el.btnInquireSelection) {
+    el.btnInquireSelection.addEventListener('click', window.openSampleModal);
+  }
+  if (el.openSampleModalBtn) {
+    el.openSampleModalBtn.addEventListener('click', window.openSampleModal);
+  }
   el.modalCloseBtn.addEventListener('click', closeSampleModal);
   el.modalCancelBtn.addEventListener('click', closeSampleModal);
 

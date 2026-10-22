@@ -1083,30 +1083,60 @@ button, input, select, textarea {
   border-color: #27272A;
 }
 
-/* Floating 360° & Zoom Control Overlay Toolbar */
-.stage-floating-toolbar {
+/* Floating Single Reset Control in 3D Stage Console */
+.stage-floating-toolbar.stage-reset-bar {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 18px;
+  right: 18px;
   z-index: 20;
   display: flex;
   align-items: center;
-  gap: 6px;
-  background-color: rgba(255, 255, 255, 0.94);
-  border: 1px solid var(--slate-300);
-  border-radius: 8px;
-  padding: 4px 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: all var(--transition-normal);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0;
 }
 
-.viewport-stage.backdrop-dark .stage-floating-toolbar,
-.viewport-stage.backdrop-black .stage-floating-toolbar {
-  background-color: rgba(15, 23, 42, 0.88);
-  border-color: rgba(255, 255, 255, 0.2);
+.reset-single-btn {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid var(--slate-300);
+  color: #1E293B;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all var(--transition-fast);
+}
+
+.viewport-stage.backdrop-dark .reset-single-btn,
+.viewport-stage.backdrop-black .reset-single-btn {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #F8FAFC;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.reset-single-btn:hover {
+  background: var(--brand-red);
+  color: #FFFFFF !important;
+  border-color: var(--brand-red);
+  box-shadow: 0 6px 16px rgba(237, 28, 36, 0.35);
+  transform: translateY(-1px);
+}
+
+.reset-single-btn:hover .tool-icon {
+  transform: rotate(-180deg);
+  transition: transform 0.35s ease;
 }
 
 .tool-btn {
@@ -1808,21 +1838,58 @@ button, input, select, textarea {
   color: var(--pure-white);
 }
 
-/* Swatches Grid */
-.swatches-container {
-  flex-grow: 1;
-  max-height: 250px;
-  overflow-y: auto;
-  padding-right: 4px;
-  margin-bottom: 18px;
+/* Quick Action Controls in Right Panel (Replacing Search & Filters) */
+.palette-quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
-.swatches-container::-webkit-scrollbar {
-  width: 5px;
+.btn-studio-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--carbon-800);
+  background: #FFFFFF;
+  border: 1.5px solid var(--slate-300);
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
 }
-.swatches-container::-webkit-scrollbar-thumb {
-  background-color: var(--slate-300);
-  border-radius: 4px;
+
+.btn-studio-action:hover {
+  border-color: var(--brand-red);
+  color: var(--brand-red);
+  background: rgba(237, 28, 36, 0.04);
+}
+
+.btn-studio-action.active,
+.btn-studio-action[aria-pressed="true"] {
+  background: var(--brand-red);
+  color: #FFFFFF;
+  border-color: var(--brand-red);
+  box-shadow: 0 4px 14px rgba(237, 28, 36, 0.25);
+}
+
+.btn-studio-action .action-icon {
+  font-size: 0.95rem;
+}
+
+/* Swatches Grid - All 20 Shades in a Single Unscrolled View */
+.swatches-container {
+  flex-grow: 1;
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+  margin-bottom: 16px;
 }
 
 .swatches-grid {
