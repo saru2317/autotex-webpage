@@ -9,10 +9,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="Image/autotex-logo.png">
   
-  <!-- Google Fonts: Outfit (Display & Headings) + Inter (Technical UI) -->
+  <!-- Google Fonts: Montserrat (Headings & Navigation matching autotex.net) + Mulish (Clean Body Text) + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
@@ -194,7 +194,7 @@
           <div class="profile-card" data-target="d-spring">
             <div class="profile-card-badge">Compressible</div>
             <div class="profile-thumb-wrap">
-              <img src="Image/tints/d-spring_AT-SIG-01.png" alt="D-SPRING Compressible Dye Tube" class="profile-thumb">
+              <img src="Image/tints/d-spring_R3020.png" alt="D-SPRING Compressible Dye Tube" class="profile-thumb">
             </div>
             <div class="profile-card-body">
               <h3 class="profile-name">D-SPRING</h3>
@@ -217,7 +217,7 @@
           <div class="profile-card" data-target="d-stiff">
             <div class="profile-card-badge">Rigid</div>
             <div class="profile-thumb-wrap">
-              <img src="Image/tints/d-stiff_AT-SIG-03.png" alt="D-STIFF Rigid Dye Tube" class="profile-thumb">
+              <img src="Image/tints/d-stiff_R5002.png" alt="D-STIFF Rigid Dye Tube" class="profile-thumb">
             </div>
             <div class="profile-card-body">
               <h3 class="profile-name">D-STIFF</h3>
@@ -240,7 +240,7 @@
           <div class="profile-card" data-target="d-stack">
             <div class="profile-card-badge">Stackable</div>
             <div class="profile-thumb-wrap">
-              <img src="Image/tints/d-stack_AT-SIG-06.png" alt="D-STACK Stackable Dye Tube" class="profile-thumb">
+              <img src="Image/tints/d-stack_R1016.png" alt="D-STACK Stackable Dye Tube" class="profile-thumb">
             </div>
             <div class="profile-card-body">
               <h3 class="profile-name">D-STACK</h3>
@@ -263,7 +263,7 @@
           <div class="profile-card" data-target="d-cone">
             <div class="profile-card-badge">Perforated</div>
             <div class="profile-thumb-wrap">
-              <img src="Image/tints/d-cone_AT-SIG-02.png" alt="D-CONE Perforated Dye Cone" class="profile-thumb">
+              <img src="Image/tints/d-cone_R6001.png" alt="D-CONE Perforated Dye Cone" class="profile-thumb">
             </div>
             <div class="profile-card-body">
               <h3 class="profile-name">D-CONE</h3>
@@ -286,7 +286,7 @@
           <div class="profile-card" data-target="s-cone">
             <div class="profile-card-badge">Sale Yarn</div>
             <div class="profile-thumb-wrap">
-              <img src="Image/tints/s-cone_AT-NEU-21.png" alt="S-CONE Sale Yarn Cone" class="profile-thumb">
+              <img src="Image/tints/s-cone_R1015.png" alt="S-CONE Sale Yarn Cone" class="profile-thumb">
             </div>
             <div class="profile-card-body">
               <h3 class="profile-name">S-CONE</h3>
@@ -443,7 +443,24 @@
                   <span class="tool-icon">↺</span>
                   <span class="tool-label">Reset</span>
                 </button>
+                <div class="tool-divider"></div>
+                <button id="btn-fullscreen-toggle" class="tool-btn fullscreen-btn" title="Toggle Full Screen 3D Studio Play" aria-pressed="false">
+                  <span class="tool-icon" id="fs-icon">⛶</span>
+                  <span class="tool-label" id="fs-label">Full Screen</span>
+                </button>
               </div>
+
+              <!-- Fullscreen Floating Controls -->
+              <div class="fs-active-shade-badge" id="fs-shade-badge">
+                <span class="fs-dot" id="fs-color-dot" style="background-color: #E3000F;"></span>
+                <span class="fs-name" id="fs-color-name">Traffic Red</span>
+                <span class="fs-code" id="fs-color-code">R3020</span>
+                <span class="fs-ral-pill" id="fs-color-ral">RAL 3020</span>
+              </div>
+
+              <button class="fs-exit-btn" id="fs-exit-btn" title="Exit Full Screen Play (Esc)">
+                <span>✕ Exit Full Screen</span>
+              </button>
 
               <!-- Interactive Drag Cue (Fades out once user drags) -->
               <div class="drag-hint-pill" id="drag-hint">
@@ -470,7 +487,7 @@
                 <div class="product-render-stage" id="main-render-stage" style="display: none;">
                   <div class="stage-pedestal-shadow" id="stage-shadow"></div>
                   <div class="product-glare-overlay" id="product-glare"></div>
-                  <img id="product-display-img" src="Image/tints/d-spring_AT-SIG-01.png" alt="Autotex Configured Product" class="product-display-img">
+                  <img id="product-display-img" src="Image/tints/d-spring_R3020.png" alt="Autotex Configured Product" class="product-display-img">
                   <canvas id="product-custom-canvas" class="product-custom-canvas" style="display: none;"></canvas>
                 </div>
 
@@ -502,11 +519,11 @@
                   <div class="compare-tag">PRIMARY SELECTION</div>
                   <div class="compare-render-stage">
                     <div class="stage-pedestal-shadow small"></div>
-                    <img id="compare-display-a" src="Image/tints/d-spring_AT-SIG-01.png" alt="Primary Variant" class="product-display-img">
+                    <img id="compare-display-a" src="Image/tints/d-spring_R3020.png" alt="Primary Variant" class="product-display-img">
                   </div>
                   <div class="compare-info">
-                    <strong id="compare-name-a">Autotex Red</strong>
-                    <span id="compare-code-a">AT-SIG-01 · #ED1C24</span>
+                    <strong id="compare-name-a">Traffic Red</strong>
+                    <span id="compare-code-a">R3020 · RAL 3020</span>
                   </div>
                 </div>
 
@@ -517,11 +534,11 @@
                   <div class="compare-tag">COMPARISON CANDIDATE</div>
                   <div class="compare-render-stage">
                     <div class="stage-pedestal-shadow small"></div>
-                    <img id="compare-display-b" src="Image/tints/d-spring_AT-SIG-02.png" alt="Comparison Variant" class="product-display-img">
+                    <img id="compare-display-b" src="Image/tints/d-spring_R5002.png" alt="Comparison Variant" class="product-display-img">
                   </div>
                   <div class="compare-info">
-                    <strong id="compare-name-b">Industrial Yellow</strong>
-                    <span id="compare-code-b">AT-SIG-02 · #FFDE00</span>
+                    <strong id="compare-name-b">Marine Blue</strong>
+                    <span id="compare-code-b">R5002 · RAL 5002</span>
                   </div>
                 </div>
 
@@ -557,9 +574,9 @@
               <div class="spec-quick-item">
                 <span class="spec-label">ACTIVE SHADE</span>
                 <div class="active-color-pill">
-                  <span class="color-sample-circle" id="hud-color-dot" style="background-color: #ED1C24;"></span>
-                  <strong id="hud-color-name">Autotex Red</strong>
-                  <code id="hud-color-hex">#ED1C24</code>
+                  <span class="color-sample-circle" id="hud-color-dot" style="background-color: #E3000F;"></span>
+                  <strong id="hud-color-name">Traffic Red</strong>
+                  <code id="hud-color-hex">R3020 (RAL 3020)</code>
                 </div>
               </div>
               <div class="spec-quick-item">
@@ -587,23 +604,21 @@
                 <p class="panel-eyebrow">MASTERBATCH COLOUR LIBRARY</p>
                 <h3 class="panel-title">Choose Formulation</h3>
               </div>
-              <span class="palette-counter" id="palette-count-badge">24 SHADES</span>
+              <span class="palette-counter" id="palette-count-badge">20 SHADES</span>
             </div>
 
             <!-- Search & Filters -->
             <div class="palette-controls">
               <div class="search-input-wrap">
                 <svg viewBox="0 0 24 24" class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input type="search" id="color-search" placeholder="Search by name, RAL, or hex..." aria-label="Search masterbatch colors">
+                <input type="search" id="color-search" placeholder="Search by name, RAL (e.g. 3020), or code (e.g. R3020)..." aria-label="Search masterbatch colors">
                 <button id="clear-search-btn" class="clear-btn" aria-label="Clear search" hidden>×</button>
               </div>
 
               <div class="filter-pills" role="group" aria-label="Filter Palette Families">
-                <button class="filter-pill active" data-family="All">All Shades</button>
-                <button class="filter-pill" data-family="Signature">Autotex Core</button>
-                <button class="filter-pill" data-family="Warm">Warm</button>
-                <button class="filter-pill" data-family="Cool">Cool</button>
-                <button class="filter-pill" data-family="Neutral">Neutrals</button>
+                <button class="filter-pill active" data-family="All">All Shades (20)</button>
+                <button class="filter-pill" data-family="RAL Standard">RAL Classic (11)</button>
+                <button class="filter-pill" data-family="Custom Formulation">Pantone Custom (9)</button>
               </div>
             </div>
 
@@ -639,12 +654,12 @@
             <!-- Active Selection Detail & Actions -->
             <div class="selection-summary-card">
               <div class="selected-product-header">
-                <div class="summary-chip" id="summary-color-chip" style="background-color: #ED1C24;"></div>
+                <div class="summary-chip" id="summary-color-chip" style="background-color: #E3000F;"></div>
                 <div class="summary-details">
-                  <h4 id="summary-title">Autotex Red · #ED1C24</h4>
-                  <p id="summary-subtitle">D-SPRING · Compressible Dye Tube · Virgin PP</p>
+                  <h4 id="summary-title">Traffic Red · R3020</h4>
+                  <p id="summary-subtitle"><span id="summary-ral-badge-text" class="ral-badge-pill">RAL 3020</span> · <span id="summary-pdf-label">R3020 | Traffic Red</span></p>
                 </div>
-                <span class="status-verified">Active Formulation</span>
+                <span class="status-verified" id="summary-spec-tag">Official Supply</span>
               </div>
 
               <div class="summary-btn-group">

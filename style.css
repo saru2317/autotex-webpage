@@ -24,9 +24,9 @@
   --slate-50: #F8FAFC;
   --pure-white: #FFFFFF;
 
-  /* Typography */
-  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Typography matching autotex.net */
+  --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Mulish', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
 
   /* Elevation Shadows */
@@ -69,6 +69,10 @@ body {
   background-color: var(--pure-white);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
 }
 
 img {
@@ -2807,3 +2811,202 @@ button, input, select, textarea {
     width: 100%;
   }
 }
+
+/* ==========================================================================
+   FULL SCREEN 3D STUDIO PLAY MODE & RAL BADGE STYLES
+   ========================================================================== */
+
+.fullscreen-btn {
+  background: rgba(237, 28, 36, 0.08) !important;
+  color: var(--brand-red) !important;
+  border-color: rgba(237, 28, 36, 0.25) !important;
+}
+
+.fullscreen-btn:hover {
+  background: var(--brand-red) !important;
+  color: #FFFFFF !important;
+}
+
+/* Fullscreen Stage Elements */
+:fullscreen .viewport-stage,
+:-webkit-full-screen .viewport-stage,
+.viewport-stage:fullscreen,
+.viewport-stage:-webkit-full-screen,
+.viewport-stage.is-fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  z-index: 999999 !important;
+}
+
+:fullscreen #three-canvas,
+:-webkit-full-screen #three-canvas,
+.viewport-stage:fullscreen #three-canvas,
+.viewport-stage:-webkit-full-screen #three-canvas,
+.viewport-stage.is-fullscreen #three-canvas {
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+:fullscreen .stage-floating-toolbar,
+:-webkit-full-screen .stage-floating-toolbar,
+.viewport-stage:fullscreen .stage-floating-toolbar,
+.viewport-stage:-webkit-full-screen .stage-floating-toolbar,
+.viewport-stage.is-fullscreen .stage-floating-toolbar {
+  top: 24px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25) !important;
+  z-index: 1000001 !important;
+}
+
+:fullscreen .angle-quick-bar,
+:-webkit-full-screen .angle-quick-bar,
+.viewport-stage:fullscreen .angle-quick-bar,
+.viewport-stage:-webkit-full-screen .angle-quick-bar,
+.viewport-stage.is-fullscreen .angle-quick-bar {
+  bottom: 24px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.22) !important;
+  z-index: 1000001 !important;
+}
+
+/* Floating Shade Badge in Fullscreen */
+.fs-active-shade-badge {
+  display: none;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(12px);
+  color: #FFFFFF;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  align-items: center;
+  gap: 12px;
+}
+
+:fullscreen .fs-active-shade-badge,
+:-webkit-full-screen .fs-active-shade-badge,
+.viewport-stage:fullscreen .fs-active-shade-badge,
+.viewport-stage:-webkit-full-screen .fs-active-shade-badge,
+.viewport-stage.is-fullscreen .fs-active-shade-badge {
+  display: flex !important;
+  z-index: 1000001 !important;
+}
+
+.fs-active-shade-badge .fs-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.fs-active-shade-badge .fs-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+}
+
+.fs-active-shade-badge .fs-code {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #94A3B8;
+  margin-left: 4px;
+}
+
+.fs-active-shade-badge .fs-ral-pill {
+  background: var(--brand-red);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* Exit Fullscreen button */
+.fs-exit-btn {
+  display: none;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 1000001;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(12px);
+  color: #FFFFFF;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.fs-exit-btn:hover {
+  background: var(--brand-red);
+  border-color: var(--brand-red);
+}
+
+:fullscreen .fs-exit-btn,
+:-webkit-full-screen .fs-exit-btn,
+.viewport-stage:fullscreen .fs-exit-btn,
+.viewport-stage:-webkit-full-screen .fs-exit-btn,
+.viewport-stage.is-fullscreen .fs-exit-btn {
+  display: flex !important;
+  z-index: 1000001 !important;
+}
+
+/* RAL & Specification Pills in Palette */
+.ral-badge-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(237, 28, 36, 0.1);
+  color: var(--brand-red);
+  font-weight: 800;
+  font-size: 0.74rem;
+  border-radius: 4px;
+  border: 1px solid rgba(237, 28, 36, 0.28);
+  letter-spacing: 0.04em;
+}
+
+.swatch-code {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #334155;
+  letter-spacing: -0.01em;
+}
+
+.swatch-ral {
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: var(--brand-red);
+  background: rgba(237, 28, 36, 0.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+}
+

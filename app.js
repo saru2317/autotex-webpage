@@ -89,40 +89,38 @@
   };
 
   // =========================================================================
-  // 2. MASTERBATCH COLOUR LIBRARY (24 Formulations)
+  // 2. MASTERBATCH COLOUR LIBRARY (Official Autotex Supply Shades from PDF)
   // =========================================================================
   const PALETTE = [
-    // Autotex Signature
-    { name: 'Autotex Red', hex: '#ED1C24', code: 'AT-SIG-01', family: 'Signature' },
-    { name: 'Industrial Yellow', hex: '#FFDE00', code: 'AT-SIG-02', family: 'Signature' },
-    { name: 'High-Speed Green', hex: '#109948', code: 'AT-SIG-03', family: 'Signature' },
-    { name: 'Royal Cobalt', hex: '#1F4EB8', code: 'AT-SIG-04', family: 'Signature' },
-    { name: 'Tangerine Orange', hex: '#FF671F', code: 'AT-SIG-05', family: 'Signature' },
-    { name: 'Imperial Purple', hex: '#7B3F8D', code: 'AT-SIG-06', family: 'Signature' },
+    // Row 1
+    { code: 'R3020', name: 'Traffic Red', hex: '#E3000F', ral: 'RAL 3020', isRal: true, family: 'RAL Standard', fullLabel: 'R3020 | Traffic Red' },
+    { code: 'R3015', name: 'Light Pink', hex: '#EDAFB5', ral: 'RAL 3015', isRal: true, family: 'RAL Standard', fullLabel: 'R3015 | Light Pink' },
+    { code: 'P1777', name: 'Baby Pink', hex: '#EA506C', ral: 'Pantone 1777', isRal: false, family: 'Custom Formulation', fullLabel: 'P1777 | Baby Pink' },
+    { code: 'R5002', name: 'Marine Blue', hex: '#232F81', ral: 'RAL 5002', isRal: true, family: 'RAL Standard', fullLabel: 'R5002 | Marine Blue' },
 
-    // Warm Palette
-    { name: 'Ruby Crimson', hex: '#BA0C2F', code: 'AT-WRM-07', family: 'Warm' },
-    { name: 'Coral Blossom', hex: '#FF6B8B', code: 'AT-WRM-08', family: 'Warm' },
-    { name: 'Deep Magenta', hex: '#D11270', code: 'AT-WRM-09', family: 'Warm' },
-    { name: 'Amber Sunset', hex: '#E87722', code: 'AT-WRM-10', family: 'Warm' },
-    { name: 'Golden Ochre', hex: '#EAA023', code: 'AT-WRM-11', family: 'Warm' },
-    { name: 'Bordeaux Wine', hex: '#6B1D2F', code: 'AT-WRM-12', family: 'Warm' },
+    // Row 2
+    { code: 'R1016', name: 'Sulfur Yellow', hex: '#FBEC43', ral: 'RAL 1016', isRal: true, family: 'RAL Standard', fullLabel: 'R1016 | Sulfur Yellow' },
+    { code: 'R1000', name: 'Green Beige', hex: '#E4D3A0', ral: 'RAL 1000', isRal: true, family: 'RAL Standard', fullLabel: 'R1000 | Green Beige' },
+    { code: 'R4008', name: 'Signal Violet', hex: '#913387', ral: 'RAL 4008', isRal: true, family: 'RAL Standard', fullLabel: 'R4008 | Signal Violet' },
+    { code: 'P0226', name: 'Majestic Magenta', hex: '#CE0071', ral: 'Pantone 226', isRal: false, family: 'Custom Formulation', fullLabel: 'P0226 | Majestic Magenta' },
 
-    // Cool Palette
-    { name: 'Emerald Dye', hex: '#008559', code: 'AT-COL-13', family: 'Cool' },
-    { name: 'Process Cyan', hex: '#00A3E0', code: 'AT-COL-14', family: 'Cool' },
-    { name: 'Navy Spindle', hex: '#0C2340', code: 'AT-COL-15', family: 'Cool' },
-    { name: 'Deep Teal', hex: '#008080', code: 'AT-COL-16', family: 'Cool' },
-    { name: 'Sky Mist', hex: '#6CACE4', code: 'AT-COL-17', family: 'Cool' },
-    { name: 'Olive Mill', hex: '#556B2F', code: 'AT-COL-18', family: 'Cool' },
+    // Row 3
+    { code: 'P0172', name: 'Red Orange', hex: '#E94D09', ral: 'Pantone 172', isRal: false, family: 'Custom Formulation', fullLabel: 'P0172 | Red Orange' },
+    { code: 'P0333', name: 'Mint Green', hex: '#5EBAAA', ral: 'Pantone 333', isRal: false, family: 'Custom Formulation', fullLabel: 'P0333 | Mint Green' },
+    { code: 'R3016', name: 'Coral Red', hex: '#B12A17', ral: 'RAL 3016', isRal: true, family: 'RAL Standard', fullLabel: 'R3016 | Coral Red' },
+    { code: 'R9005', name: 'Jet Black', hex: '#3B3B3A', ral: 'RAL 9005', isRal: true, family: 'RAL Standard', fullLabel: 'R9005 | Jet Black' },
 
-    // Neutral & Identification Palette
-    { name: 'Natural White', hex: '#FFFFFF', code: 'AT-NEU-19', family: 'Neutral' },
-    { name: 'Virgin Ivory', hex: '#F6F1E5', code: 'AT-NEU-20', family: 'Neutral' },
-    { name: 'Mill Tan', hex: '#D2B48C', code: 'AT-NEU-21', family: 'Neutral' },
-    { name: 'Light Chrome', hex: '#C0C0C0', code: 'AT-NEU-22', family: 'Neutral' },
-    { name: 'Slate Charcoal', hex: '#4A4A4A', code: 'AT-NEU-23', family: 'Neutral' },
-    { name: 'Carbon Black', hex: '#202020', code: 'AT-NEU-24', family: 'Neutral' }
+    // Row 4
+    { code: 'P0375', name: 'Pista Green', hex: '#95C11B', ral: 'Pantone 375', isRal: false, family: 'Custom Formulation', fullLabel: 'P0375 | Pista Green' },
+    { code: 'P2562', name: 'Plum Lavender', hex: '#C69DC9', ral: 'Pantone 2562', isRal: false, family: 'Custom Formulation', fullLabel: 'P2562 | Plum Lavender' },
+    { code: 'R7005', name: 'Mouse Grey', hex: '#7D8680', ral: 'RAL 7005', isRal: true, family: 'RAL Standard', fullLabel: 'R7005 | Mouse Grey' },
+    { code: 'R8012', name: 'Red Brown', hex: '#66220A', ral: 'RAL 8012', isRal: true, family: 'RAL Standard', fullLabel: 'R8012 | Red Brown' },
+
+    // Row 5
+    { code: 'P2975', name: 'Sky Blue', hex: '#A3D2E3', ral: 'Pantone 2975', isRal: false, family: 'Custom Formulation', fullLabel: 'P2975 | Sky Blue' },
+    { code: 'P7515', name: 'Copper Brown', hex: '#BF8471', ral: 'Pantone 7515', isRal: false, family: 'Custom Formulation', fullLabel: 'P7515 | Copper Brown' },
+    { code: 'R1015', name: 'Light Ivory', hex: '#F5E7D2', ral: 'RAL 1015', isRal: true, family: 'RAL Standard', fullLabel: 'R1015 | Light Ivory' },
+    { code: 'R6001', name: 'Emerald Green', hex: '#387D33', ral: 'RAL 6001', isRal: true, family: 'RAL Standard', fullLabel: 'R6001 | Emerald Green' }
   ];
 
   // Application State
@@ -209,8 +207,20 @@
     summaryColorChip: document.getElementById('summary-color-chip'),
     summaryTitle: document.getElementById('summary-title'),
     summarySubtitle: document.getElementById('summary-subtitle'),
+    summaryRalBadgeText: document.getElementById('summary-ral-badge-text'),
+    summaryPdfLabel: document.getElementById('summary-pdf-label'),
     btnDownloadSpec: document.getElementById('btn-download-spec'),
     btnInquireSelection: document.getElementById('btn-inquire-selection'),
+    // Fullscreen Play Controls
+    btnFullscreenToggle: document.getElementById('btn-fullscreen-toggle'),
+    fsIcon: document.getElementById('fs-icon'),
+    fsLabel: document.getElementById('fs-label'),
+    fsExitBtn: document.getElementById('fs-exit-btn'),
+    fsShadeBadge: document.getElementById('fs-shade-badge'),
+    fsColorDot: document.getElementById('fs-color-dot'),
+    fsColorName: document.getElementById('fs-color-name'),
+    fsColorCode: document.getElementById('fs-color-code'),
+    fsColorRal: document.getElementById('fs-color-ral'),
     // Modal Elements
     sampleModal: document.getElementById('sample-modal'),
     openSampleModalBtn: document.getElementById('open-sample-modal-btn'),
@@ -355,15 +365,28 @@
 
     el.hudColorDot.style.backgroundColor = primaryColor.hex;
     el.hudColorName.textContent = primaryColor.name;
-    el.hudColorHex.textContent = primaryColor.hex.toUpperCase();
+    el.hudColorHex.textContent = primaryColor.isRal ? `${primaryColor.code} (${primaryColor.ral})` : `${primaryColor.code}`;
     el.hudPerforation.textContent = prod.perforation;
     el.hudCompression.textContent = prod.compression;
     el.hudTemp.textContent = prod.temp;
 
-    // 5. Update Selection Summary Card
+    // 5. Update Selection Summary Card (Showing Name, RAL Code & Code as per PDF)
     el.summaryColorChip.style.backgroundColor = primaryColor.hex;
-    el.summaryTitle.textContent = `${primaryColor.name} · ${primaryColor.hex.toUpperCase()}`;
-    el.summarySubtitle.textContent = `${prod.name} (${prod.type}) · ${primaryColor.code}`;
+    el.summaryTitle.textContent = `${primaryColor.name} · ${primaryColor.code}`;
+    if (el.summaryRalBadgeText) {
+      el.summaryRalBadgeText.textContent = primaryColor.isRal ? primaryColor.ral : `${primaryColor.code} (Pantone)`;
+    }
+    if (el.summaryPdfLabel) {
+      el.summaryPdfLabel.textContent = primaryColor.fullLabel || `${primaryColor.code} | ${primaryColor.name}`;
+    }
+
+    // Fullscreen Overlay Badge
+    if (el.fsColorDot) el.fsColorDot.style.backgroundColor = primaryColor.hex;
+    if (el.fsColorName) el.fsColorName.textContent = primaryColor.name;
+    if (el.fsColorCode) el.fsColorCode.textContent = primaryColor.code;
+    if (el.fsColorRal) {
+      el.fsColorRal.textContent = primaryColor.isRal ? primaryColor.ral : `${primaryColor.code}`;
+    }
 
     // 6. Update Comparison Mode Stages if active
     if (isComparing) {
@@ -437,7 +460,11 @@
     
     const visibleColors = PALETTE.map((c, i) => ({ ...c, originalIndex: i })).filter(item => {
       const matchFamily = activeFamilyFilter === 'All' || item.family === activeFamilyFilter;
-      const matchQuery = !q || item.name.toLowerCase().includes(q) || item.code.toLowerCase().includes(q) || item.hex.toLowerCase().includes(q);
+      const matchQuery = !q || 
+        item.name.toLowerCase().includes(q) || 
+        item.code.toLowerCase().includes(q) || 
+        (item.ral && item.ral.toLowerCase().includes(q)) || 
+        item.hex.toLowerCase().includes(q);
       return matchFamily && matchQuery;
     });
 
@@ -472,7 +499,11 @@
       btn.className = `swatch-btn ${isSelected ? 'selected' : ''}`;
       btn.setAttribute('role', 'radio');
       btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
-      btn.setAttribute('title', `${item.name} (${item.code}) - ${item.hex}`);
+      btn.setAttribute('title', `${item.fullLabel} (${item.ral}) - ${item.hex}`);
+
+      const ralTag = item.isRal 
+        ? `<span class="swatch-ral">${item.ral}</span>` 
+        : `<span class="swatch-ral" style="color:#6366F1;background:rgba(99,102,241,0.08);">${item.code}</span>`;
 
       btn.innerHTML = `
         <span class="swatch-circle" style="background-color: ${item.hex};">
@@ -480,16 +511,17 @@
         </span>
         <span class="swatch-label">${item.name}</span>
         <span class="swatch-code">${item.code}</span>
+        ${ralTag}
       `;
 
       btn.onclick = () => {
         customHexColor = null; // Clear custom color override
         if (isComparing) {
           compareColorIndex = item.originalIndex;
-          showToast(`Compared: ${item.name} (${item.code})`);
+          showToast(`Compared: ${item.fullLabel} (${item.ral})`);
         } else {
           primaryColorIndex = item.originalIndex;
-          showToast(`Applied: ${item.name} (${item.code})`);
+          showToast(`Applied: ${item.fullLabel} (${item.ral})`);
         }
         updateStudio();
       };
@@ -773,9 +805,9 @@
 
   function onWindowResize() {
     if (!renderer || !camera || !el.stageSingle) return;
-    const rect = el.stageSingle.getBoundingClientRect();
-    const width = rect.width || el.stageViewport.clientWidth || 600;
-    const height = Math.max(450, rect.height || 480);
+    const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || (el.stageViewport && el.stageViewport.classList.contains('is-fullscreen')));
+    const width = isFS ? window.innerWidth : (el.stageSingle.clientWidth || el.stageViewport.clientWidth || 600);
+    const height = isFS ? window.innerHeight : Math.max(450, el.stageSingle.clientHeight || 480);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
@@ -1608,6 +1640,116 @@
       });
     });
   }
+
+  // =========================================================================
+  // 4b. FULL SCREEN 3D STUDIO PLAY MODE
+  // =========================================================================
+  function isCurrentlyFullscreen() {
+    return !!(
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement ||
+      (el.stageViewport && el.stageViewport.classList.contains('is-fullscreen'))
+    );
+  }
+
+  function toggleFullscreen() {
+    if (isCurrentlyFullscreen()) {
+      exitFullscreenMode();
+    } else {
+      enterFullscreenMode();
+    }
+  }
+
+  function enterFullscreenMode() {
+    const container = el.stageViewport;
+    if (!container) return;
+
+    if (container.requestFullscreen) {
+      container.requestFullscreen().catch(() => fallbackFullscreen(container, true));
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    } else if (container.mozRequestFullScreen) {
+      container.mozRequestFullScreen();
+    } else if (container.msRequestFullscreen) {
+      container.msRequestFullscreen();
+    } else {
+      fallbackFullscreen(container, true);
+    }
+  }
+
+  function exitFullscreenMode() {
+    const container = el.stageViewport;
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(() => fallbackFullscreen(container, false));
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    } else {
+      fallbackFullscreen(container, false);
+    }
+  }
+
+  function fallbackFullscreen(container, enable) {
+    if (!container) return;
+    if (enable) {
+      container.classList.add('is-fullscreen');
+      document.body.style.overflow = 'hidden';
+    } else {
+      container.classList.remove('is-fullscreen');
+      document.body.style.overflow = '';
+    }
+    syncFullscreenUI(enable);
+  }
+
+  function syncFullscreenUI(isFS) {
+    if (el.fsIcon) el.fsIcon.textContent = isFS ? 'fullscreen_exit' : 'fullscreen';
+    if (el.fsLabel) el.fsLabel.textContent = isFS ? 'Exit' : 'Full Screen';
+    if (el.btnFullscreenToggle) {
+      el.btnFullscreenToggle.setAttribute('aria-pressed', isFS ? 'true' : 'false');
+      el.btnFullscreenToggle.classList.toggle('active', isFS);
+    }
+    if (isFS) {
+      // Auto-spin turntable showcase ("play" mode)
+      if (!isAutoSpinning) {
+        startAutoSpin();
+      }
+      showToast('Full Screen Play: 360° dynamic showroom');
+    }
+
+    setTimeout(onWindowResize, 60);
+    setTimeout(onWindowResize, 250);
+  }
+
+  function onFullscreenStateChange() {
+    const isFS = isCurrentlyFullscreen();
+    if (el.stageViewport) {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        el.stageViewport.classList.add('is-fullscreen');
+      } else if (!isFS) {
+        el.stageViewport.classList.remove('is-fullscreen');
+      }
+    }
+    syncFullscreenUI(isFS);
+  }
+
+  if (el.btnFullscreenToggle) {
+    el.btnFullscreenToggle.addEventListener('click', toggleFullscreen);
+  }
+  if (el.fsExitBtn) {
+    el.fsExitBtn.addEventListener('click', exitFullscreenMode);
+  }
+
+  document.addEventListener('fullscreenchange', onFullscreenStateChange);
+  document.addEventListener('webkitfullscreenchange', onFullscreenStateChange);
+  document.addEventListener('mozfullscreenchange', onFullscreenStateChange);
+  document.addEventListener('MSFullscreenChange', onFullscreenStateChange);
 
   // Initial stage transform
   applyStageTransform();
