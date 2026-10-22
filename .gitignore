@@ -12,3 +12,5 @@ old_backup/
 Thumbs.db
 .vscode/
 .idea/
+
+*.docx

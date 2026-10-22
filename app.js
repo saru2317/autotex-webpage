@@ -992,7 +992,7 @@
 
     // Check if authentic manufacturing CAD GLB exists for this model
     const hasCAD = (modelKey === 'd-spring' || modelKey === 'd-stiff' || modelKey === 'd-stack' || modelKey === 'd-cone' || modelKey === 's-cone');
-    const cadVersion = 'v=cad_v5';
+    const cadVersion = 'v=cad_open_v6';
     const cadPath = (modelKey === 'd-spring') ? `models/d_spring.glb?${cadVersion}` :
                     (modelKey === 'd-stiff') ? `models/d_stiff.glb?${cadVersion}` :
                     (modelKey === 'd-stack') ? `models/d_stack.glb?${cadVersion}` :
