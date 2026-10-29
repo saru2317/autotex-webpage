@@ -354,27 +354,27 @@
     if (customHexColor) {
       renderCustomColorCanvas(prod, customHexColor);
     } else {
-      el.productCustomCanvas.style.display = 'none';
+      if (el.productCustomCanvas) el.productCustomCanvas.style.display = 'none';
       const tintPath = `Image/tints/${prod.id}_${primaryColor.code}.png`;
-      el.productDisplayImg.src = tintPath;
-      el.productDisplayImg.alt = `${prod.name} in ${primaryColor.name}`;
+      if (el.productDisplayImg) el.productDisplayImg.src = tintPath;
+      if (el.productDisplayImg) el.productDisplayImg.alt = `${prod.name} in ${primaryColor.name}`;
     }
 
     // 3. Update Breadcrumbs & Polymer Badge
-    el.activeModelTitle.textContent = `${prod.name} · ${prod.categoryBadge.toUpperCase()}`;
-    el.activePolymerTag.textContent = prod.polymer.toUpperCase();
+    if (el.activeModelTitle) el.activeModelTitle.textContent = `${prod.name} · ${prod.categoryBadge.toUpperCase()}`;
+    if (el.activePolymerTag) el.activePolymerTag.textContent = prod.polymer.toUpperCase();
 
     // 4. Update HUD Overlays
-    el.hudTopDia.textContent = prod.topDia;
-    el.hudLength.textContent = prod.length;
-    el.hudBottomDia.textContent = prod.bottomDia;
+    if (el.hudTopDia) el.hudTopDia.textContent = prod.topDia;
+    if (el.hudLength) el.hudLength.textContent = prod.length;
+    if (el.hudBottomDia) el.hudBottomDia.textContent = prod.bottomDia;
 
-    el.hudColorDot.style.backgroundColor = primaryColor.hex;
-    el.hudColorName.textContent = primaryColor.name;
-    el.hudColorHex.textContent = primaryColor.isRal ? `${primaryColor.code} (${primaryColor.ral})` : `${primaryColor.code}`;
-    el.hudPerforation.textContent = prod.perforation;
-    el.hudCompression.textContent = prod.compression;
-    el.hudTemp.textContent = prod.temp;
+    if (el.hudColorDot) el.hudColorDot.style.backgroundColor = primaryColor.hex;
+    if (el.hudColorName) el.hudColorName.textContent = primaryColor.name;
+    if (el.hudColorHex) el.hudColorHex.textContent = primaryColor.isRal ? `${primaryColor.code} (${primaryColor.ral})` : `${primaryColor.code}`;
+    if (el.hudPerforation) el.hudPerforation.textContent = prod.perforation;
+    if (el.hudCompression) el.hudCompression.textContent = prod.compression;
+    if (el.hudTemp) el.hudTemp.textContent = prod.temp;
 
     // 5. Update Selection Summary Card (Showing Name, RAL Code & Code as per PDF)
     el.summaryColorChip.style.backgroundColor = primaryColor.hex;
@@ -383,7 +383,7 @@
       el.summaryRalBadgeText.textContent = primaryColor.isRal ? primaryColor.ral : `${primaryColor.code} (Pantone)`;
     }
     if (el.summaryPdfLabel) {
-      el.summaryPdfLabel.textContent = primaryColor.fullLabel || `${primaryColor.code} | ${primaryColor.name}`;
+      if (el.summaryPdfLabel) el.summaryPdfLabel.textContent = primaryColor.fullLabel || `${primaryColor.code} | ${primaryColor.name}`;
     }
 
     // Fullscreen Overlay Badge
@@ -1302,7 +1302,7 @@
 
     // 5. Synchronize 360 Orbit Degree Badge
     if (el.orbitDegVal) {
-      el.orbitDegVal.textContent = `${Math.round(normalizedY)}°`;
+      if (el.orbitDegVal) el.orbitDegVal.textContent = `${Math.round(normalizedY)}°`;
     }
 
     // 6. Synchronize Turntable Range Slider
@@ -1336,7 +1336,7 @@
 
   function hideDragHint() {
     if (el.dragHint && !el.dragHint.classList.contains('fade-out')) {
-      el.dragHint.classList.add('fade-out');
+      if (el.dragHint) el.dragHint.classList.add('fade-out');
     }
   }
 

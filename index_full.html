@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AUTOTEX | Dye Tubes & Cones — Interactive 3D Colour Studio</title>
+  <meta name="description" content="Explore and customize Autotex Dye Tubes & Cones (D-Spring, D-Stiff, D-Stack, D-Cone, S-Cone) with real-time masterbatch colour preview and 360-degree rotation. Tested and Trusted, Globally.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="Image/autotex-logo.png">
+  
+  <!-- Google Fonts: Montserrat (Headings & Navigation matching autotex.net) + Mulish (Clean Body Text) + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Utility Bar (Matching autotex.net corporate style) -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <span class="top-tag"><span class="pulse-dot"></span> GLOBAL EXPORT EXCELLENCE</span>
+        <span class="top-divider">|</span>
+        <span class="top-info"><i class="icon-cert"></i> ISO 9001:2015 Certified Company</span>
+        <span class="top-divider">|</span>
+        <span class="top-info"><i class="icon-globe"></i> Exporting to 60+ Countries</span>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:+914222627681" class="top-link">+91 422 262 7681</a>
+        <span class="top-divider">|</span>
+        <a href="mailto:info@autotex.net" class="top-link">info@autotex.net</a>
+        <span class="top-divider">|</span>
+        <a href="https://autotex.net/" target="_blank" rel="noopener" class="top-link portal-link">Main Portal ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Corporate Header / Navigation -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="https://autotex.net/" class="brand-logo" aria-label="Autotex Homepage">
+        <img src="Image/autotex-logo.png" alt="AUTOTEX" class="logo-img">
+        <div class="brand-text-block">
+          <span class="brand-subtitle">TEXTILE MACHINERY COMPONENTS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav matching autotex.net -->
+      <nav class="main-nav" aria-label="Main Navigation">
+        <a href="https://autotex.net/" class="nav-item">Home</a>
+        <a href="https://autotex.net/corporate/" class="nav-item">Corporate</a>
+        <div class="nav-item-dropdown active">
+          <a href="#studio" class="nav-item active-link">
+            Textile Products <span class="badge-red">Studio</span> <span class="caret">▼</span>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#studio" class="dropdown-link active">Dye Tubes & Cones (Colour Studio)</a>
+            <a href="https://autotex.net/textile/" class="dropdown-link" target="_blank">Bobbin Holders</a>
+            <a href="https://autotex.net/textile/" class="dropdown-link" target="_blank">Simplex Bobbins</a>
+            <a href="https://autotex.net/textile/" class="dropdown-link" target="_blank">Ring Spinning Tubes</a>
+            <a href="https://autotex.net/textile/" class="dropdown-link" target="_blank">Material Handling Trays</a>
+          </div>
+        </div>
+        <a href="https://autotex.net/infrastructure/" class="nav-item">Infrastructure</a>
+        <a href="https://autotex.net/quality-systems/" class="nav-item">Quality Systems</a>
+        <a href="https://autotex.net/network/" class="nav-item">Global Network</a>
+        <a href="https://autotex.net/contact-us/" class="nav-item">Contact Us</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <a href="Image/3.pdf" target="_blank" class="btn btn-outline-catalog" title="Download Official PDF Brochure">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          PDF Brochure
+        </a>
+        <button id="open-sample-modal-btn" class="btn btn-primary-red">
+          Request Samples
+        </button>
+        <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-drawer" id="mobile-drawer">
+    <div class="mobile-nav-links">
+      <a href="https://autotex.net/" class="mobile-link">Home</a>
+      <a href="https://autotex.net/corporate/" class="mobile-link">Corporate</a>
+      <a href="#studio" class="mobile-link active">Dye Tubes & Cones Studio</a>
+      <a href="https://autotex.net/textile/" class="mobile-link">Textile Products</a>
+      <a href="https://autotex.net/infrastructure/" class="mobile-link">Infrastructure</a>
+      <a href="https://autotex.net/quality-systems/" class="mobile-link">Quality Systems</a>
+      <a href="https://autotex.net/network/" class="mobile-link">Global Network</a>
+      <a href="https://autotex.net/contact-us/" class="mobile-link">Contact Us</a>
+      <a href="Image/3.pdf" target="_blank" class="mobile-link pdf-highlight">Download PDF Catalog ↗</a>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-bg-overlay"></div>
+      <div class="hero-bg-yarn" style="background-image: url('Image/yarn-cones-bg.jpg');"></div>
+      
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-accent">PREMIUM QUALITY</span>
+            <span class="badge-text">TEXTILE DYEING PACKAGES</span>
+          </div>
+
+          <h1 class="hero-title">
+            DYE TUBES &amp; CONES
+          </h1>
+
+          <p class="hero-tagline">
+            Tested and Trusted, Globally...
+          </p>
+
+          <p class="hero-description">
+            Engineered with 100% virgin high-temperature polymers for uniform dye liquor penetration, zero yarn snagging, and extreme autoclave stability up to 135°C. Experience our real-time 3D 360° Masterbatch Colour Studio below.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#studio" class="btn btn-hero-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              Launch 360° Studio ↓
+            </a>
+            <a href="#products-overview" class="btn btn-hero-secondary">
+              Explore 5 Core Profiles →
+            </a>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <span class="metric-val">135°C</span>
+              <span class="metric-lbl">High-Temp Resistance</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-val">100%</span>
+              <span class="metric-lbl">Virgin Engineering Polymers</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-val">60+</span>
+              <span class="metric-lbl">Countries Exported</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-val">25+</span>
+              <span class="metric-lbl">Years Precision Molded</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual: Real Cluster from Official Brochure -->
+        <div class="hero-visual">
+          <div class="visual-glow"></div>
+          <div class="cluster-card">
+            <img src="Image/dye-tubes-cones-cluster.png" alt="Autotex Dye Tubes and Cones Lineup" class="cluster-img">
+            <div class="cluster-badge">
+              <span class="cluster-dot"></span>
+              <span>Complete Autotex Dye Package Family</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 5 CORE PROFILES SECTION (Referencing the PDF) -->
+    <section class="profiles-section" id="products-overview">
+      <div class="container">
+        <div class="section-header text-center">
+          <p class="section-eyebrow">ENGINEERED FOR MODERN DYEHOUSES &amp; WINDING MILLS</p>
+          <h2 class="section-title">The 5 Core Dye Tube &amp; Cone Profiles</h2>
+          <p class="section-subtitle">
+            Every tube and cone is manufactured to rigorous dimensional tolerances with round-edge perforations and micro-textured finishes.
+          </p>
+        </div>
+
+        <div class="profiles-grid">
+
+          <!-- 1. D-SPRING -->
+          <div class="profile-card" data-target="d-spring">
+            <div class="profile-card-badge">Compressible</div>
+            <div class="profile-thumb-wrap">
+              <img src="Image/tints/d-spring_R3020.png" alt="D-SPRING Compressible Dye Tube" class="profile-thumb">
+            </div>
+            <div class="profile-card-body">
+              <h3 class="profile-name">D-SPRING</h3>
+              <p class="profile-type">Compressible Dye Tube</p>
+              <p class="profile-desc">
+                Axially compressible lattice structure accommodates high yarn shrinkage under boiling dye liquor. Eliminates density gradients.
+              </p>
+              <ul class="profile-features">
+                <li><span class="check">✓</span> Uniform Axial Compression</li>
+                <li><span class="check">✓</span> Prevents Yarn Entrapment</li>
+                <li><span class="check">✓</span> Maximum Liquor Circulation</li>
+              </ul>
+              <button class="btn btn-card-action" onclick="selectStudioProduct('d-spring')">
+                Customize in 360° Studio ↗
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. D-STIFF -->
+          <div class="profile-card" data-target="d-stiff">
+            <div class="profile-card-badge">Rigid</div>
+            <div class="profile-thumb-wrap">
+              <img src="Image/tints/d-stiff_R5002.png" alt="D-STIFF Rigid Dye Tube" class="profile-thumb">
+            </div>
+            <div class="profile-card-body">
+              <h3 class="profile-name">D-STIFF</h3>
+              <p class="profile-type">Rigid Dye Tube</p>
+              <p class="profile-desc">
+                High-rigidity engineered barrel resistant to excessive centrifugal pressure and aggressive yarn collapse forces in dense packages.
+              </p>
+              <ul class="profile-features">
+                <li><span class="check">✓</span> Heavy-Duty Non-Compressible</li>
+                <li><span class="check">✓</span> High-Tension Package Winding</li>
+                <li><span class="check">✓</span> Extended Autoclave Lifespan</li>
+              </ul>
+              <button class="btn btn-card-action" onclick="selectStudioProduct('d-stiff')">
+                Customize in 360° Studio ↗
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. D-STACK -->
+          <div class="profile-card" data-target="d-stack">
+            <div class="profile-card-badge">Stackable</div>
+            <div class="profile-thumb-wrap">
+              <img src="Image/tints/d-stack_R1016.png" alt="D-STACK Stackable Dye Tube" class="profile-thumb">
+            </div>
+            <div class="profile-card-body">
+              <h3 class="profile-name">D-STACK</h3>
+              <p class="profile-type">Stackable Dye Tube</p>
+              <p class="profile-desc">
+                Self-centering interlocking ends allow seamless column stacking on dye vessel spindles without separate intermediate separator plates.
+              </p>
+              <ul class="profile-features">
+                <li><span class="check">✓</span> Interlocking Self-Centering</li>
+                <li><span class="check">✓</span> Saves Dye Spindle Loading Time</li>
+                <li><span class="check">✓</span> Eliminates Intermediate Spacers</li>
+              </ul>
+              <button class="btn btn-card-action" onclick="selectStudioProduct('d-stack')">
+                Customize in 360° Studio ↗
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. D-CONE -->
+          <div class="profile-card" data-target="d-cone">
+            <div class="profile-card-badge">Perforated</div>
+            <div class="profile-thumb-wrap">
+              <img src="Image/tints/d-cone_R6001.png" alt="D-CONE Perforated Dye Cone" class="profile-thumb">
+            </div>
+            <div class="profile-card-body">
+              <h3 class="profile-name">D-CONE</h3>
+              <p class="profile-type">Perforated Dye Cone</p>
+              <p class="profile-desc">
+                Precision taper conical dye package with balanced radial perforations for uniform inside-to-outside flow and trouble-free unwinding.
+              </p>
+              <ul class="profile-features">
+                <li><span class="check">✓</span> Optimized Staggered Holes</li>
+                <li><span class="check">✓</span> High-Flow Conical Geometry</li>
+                <li><span class="check">✓</span> Snag-Free Package Delivery</li>
+              </ul>
+              <button class="btn btn-card-action" onclick="selectStudioProduct('d-cone')">
+                Customize in 360° Studio ↗
+              </button>
+            </div>
+          </div>
+
+          <!-- 5. S-CONE -->
+          <div class="profile-card" data-target="s-cone">
+            <div class="profile-card-badge">Sale Yarn</div>
+            <div class="profile-thumb-wrap">
+              <img src="Image/tints/s-cone_R1015.png" alt="S-CONE Sale Yarn Cone" class="profile-thumb">
+            </div>
+            <div class="profile-card-body">
+              <h3 class="profile-name">S-CONE</h3>
+              <p class="profile-type">Sale Yarn Cone</p>
+              <p class="profile-desc">
+                Solid engineered cone with micro-embossed velvet grip surface designed for high-speed automatic winding and smooth yarn take-off.
+              </p>
+              <ul class="profile-features">
+                <li><span class="check">✓</span> Micro-Grooved Grip Surface</li>
+                <li><span class="check">✓</span> Zero Yarn Slough-Off</li>
+                <li><span class="check">✓</span> High-Speed Auto-Coner Ready</li>
+              </ul>
+              <button class="btn btn-card-action" onclick="selectStudioProduct('s-cone')">
+                Customize in 360° Studio ↗
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- INTERACTIVE 3D 360° ROTATE & ZOOM COLOUR STUDIO -->
+    <section class="studio-section" id="studio" aria-label="Interactive Product Colour Studio">
+      <div class="container">
+        
+        <div class="studio-header">
+          <div>
+            <div class="studio-pill"><span class="dot"></span> 360° ROTATE &amp; ZOOM STUDIO</div>
+            <h2 class="studio-title">Interactive 360° Product Configurator</h2>
+            <p class="studio-subtitle">
+              Drag horizontally or vertically to rotate the product in full 360° 3D space, scroll to zoom in/out, and click any masterbatch shade.
+            </p>
+          </div>
+        </div>
+
+        <!-- Product Selector Navigation Tabs -->
+        <div class="product-selector-bar" role="tablist" aria-label="Select Product Profile">
+          <button class="prod-tab active" data-model="d-spring" role="tab" aria-selected="true">
+            <span class="tab-code">01</span>
+            <div class="tab-info">
+              <strong class="tab-title">D-SPRING</strong>
+              <small class="tab-sub">Compressible Tube</small>
+            </div>
+            <span class="tab-active-indicator"></span>
+          </button>
+
+          <button class="prod-tab" data-model="d-stiff" role="tab" aria-selected="false">
+            <span class="tab-code">02</span>
+            <div class="tab-info">
+              <strong class="tab-title">D-STIFF</strong>
+              <small class="tab-sub">Rigid Barrel</small>
+            </div>
+            <span class="tab-active-indicator"></span>
+          </button>
+
+          <button class="prod-tab" data-model="d-stack" role="tab" aria-selected="false">
+            <span class="tab-code">03</span>
+            <div class="tab-info">
+              <strong class="tab-title">D-STACK</strong>
+              <small class="tab-sub">Stackable Spindle</small>
+            </div>
+            <span class="tab-active-indicator"></span>
+          </button>
+
+          <button class="prod-tab" data-model="d-cone" role="tab" aria-selected="false">
+            <span class="tab-code">04</span>
+            <div class="tab-info">
+              <strong class="tab-title">D-CONE</strong>
+              <small class="tab-sub">Perforated Dye Cone</small>
+            </div>
+            <span class="tab-active-indicator"></span>
+          </button>
+
+          <button class="prod-tab" data-model="s-cone" role="tab" aria-selected="false">
+            <span class="tab-code">05</span>
+            <div class="tab-info">
+              <strong class="tab-title">S-CONE</strong>
+              <small class="tab-sub">Sale Yarn Velvet Cone</small>
+            </div>
+            <span class="tab-active-indicator"></span>
+          </button>
+        </div>
+
+        <!-- Main Studio Grid -->
+        <div class="studio-grid">
+
+          <!-- Left Column: Interactive 360° Render Stage -->
+          <div class="studio-viewport-panel" id="viewport-panel">
+            
+            <div class="viewport-header">
+              <div class="viewport-breadcrumbs">
+                <span id="active-model-category">AUTOTEX DYE PACKAGES</span>
+                <span class="sep">/</span>
+                <span id="active-model-title" class="active-crumb">D-SPRING COMPRESSIBLE</span>
+              </div>
+              <div class="view-status-tags">
+                <span class="tag-status live-tag"><span class="live-dot"></span> 360° ORBIT</span>
+                <span class="tag-status polymer-tag" id="active-polymer-tag">VIRGIN POLYPROPYLENE</span>
+              </div>
+            </div>
+
+            <!-- The Render Stage Container -->
+            <div class="viewport-stage" id="stage-viewport">
+              
+              <!-- Floating Reset View Control (Only Reset button on 3D stage console) -->
+              <div class="stage-floating-toolbar stage-reset-bar">
+                <button id="btn-reset-view" class="tool-btn reset-single-btn" title="Reset 360° Angle and Zoom">
+                  <span class="tool-icon">↺</span>
+                  <span class="tool-label">Reset View</span>
+                </button>
+              </div>
+
+              <!-- Interactive Drag Cue (Fades out once user drags) -->
+              <div class="drag-hint-pill" id="drag-hint">
+                <span class="hint-icon">⇄</span>
+                <span>Click &amp; drag to rotate 360° · Scroll to zoom</span>
+              </div>
+
+              <!-- Single Stage 360° Viewport -->
+              <div class="stage-single" id="stage-single">
+                
+                <!-- 3D Turntable Base Ring -->
+                <div class="turntable-floor-ring">
+                  <div class="floor-tick tick-0">0°</div>
+                  <div class="floor-tick tick-90">90°</div>
+                  <div class="floor-tick tick-180">180°</div>
+                  <div class="floor-tick tick-270">270°</div>
+                  <div class="floor-grid-circle"></div>
+                </div>
+
+                <!-- Real 3D WebGL Canvas for 360 Degree Solid Cylinder/Cone Rotation -->
+                <canvas id="threejs-canvas" class="threejs-canvas"></canvas>
+
+                <!-- Fallback 2D Image Stage (Hidden) -->
+                <div class="product-render-stage" id="main-render-stage" style="display: none;">
+                  <div class="stage-pedestal-shadow" id="stage-shadow"></div>
+                  <div class="product-glare-overlay" id="product-glare"></div>
+                  <img id="product-display-img" src="Image/tints/d-spring_R3020.png" alt="Autotex Configured Product" class="product-display-img">
+                  <canvas id="product-custom-canvas" class="product-custom-canvas" style="display: none;"></canvas>
+                </div>
+
+                <!-- Floating Dimension Badges -->
+                <div class="dimension-hud top-hud">
+                  <span class="hud-label">Top OD</span>
+                  <span class="hud-value" id="hud-top-dia">54 mm</span>
+                </div>
+                <div class="dimension-hud height-hud">
+                  <span class="hud-label">Length</span>
+                  <span class="hud-value" id="hud-length">170 mm</span>
+                </div>
+                <div class="dimension-hud bottom-hud">
+                  <span class="hud-label">Base ID</span>
+                  <span class="hud-value" id="hud-bottom-dia">60 mm</span>
+                </div>
+
+                <!-- 360 Orbit Degree Badge -->
+                <div class="orbit-angle-hud" id="orbit-hud">
+                  <span>ORBIT: </span><strong id="orbit-deg-val">0°</strong>
+                </div>
+              </div>
+
+              <!-- Comparison View -->
+              <div class="stage-compare" id="stage-compare" style="display: none;">
+                
+                <!-- Primary Item -->
+                <div class="compare-column">
+                  <div class="compare-tag">PRIMARY SELECTION</div>
+                  <div class="compare-render-stage">
+                    <div class="stage-pedestal-shadow small"></div>
+                    <img id="compare-display-a" src="Image/tints/d-spring_R3020.png" alt="Primary Variant" class="product-display-img">
+                  </div>
+                  <div class="compare-info">
+                    <strong id="compare-name-a">Traffic Red</strong>
+                    <span id="compare-code-a">R3020 · RAL 3020</span>
+                  </div>
+                </div>
+
+                <div class="compare-vs-badge">VS</div>
+
+                <!-- Secondary Item -->
+                <div class="compare-column">
+                  <div class="compare-tag">COMPARISON CANDIDATE</div>
+                  <div class="compare-render-stage">
+                    <div class="stage-pedestal-shadow small"></div>
+                    <img id="compare-display-b" src="Image/tints/d-spring_R5002.png" alt="Comparison Variant" class="product-display-img">
+                  </div>
+                  <div class="compare-info">
+                    <strong id="compare-name-b">Marine Blue</strong>
+                    <span id="compare-code-b">R5002 · RAL 5002</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Viewport Footer Specs Summary -->
+            <div class="viewport-footer">
+              <div class="spec-quick-item">
+                <span class="spec-label">ACTIVE SHADE</span>
+                <div class="active-color-pill">
+                  <span class="color-sample-circle" id="hud-color-dot" style="background-color: #E3000F;"></span>
+                  <strong id="hud-color-name">Traffic Red</strong>
+                  <code id="hud-color-hex">R3020 (RAL 3020)</code>
+                </div>
+              </div>
+              <div class="spec-quick-item">
+                <span class="spec-label">PERFORATION RATIO</span>
+                <strong id="hud-perforation">48% Open Lattice</strong>
+              </div>
+              <div class="spec-quick-item">
+                <span class="spec-label">COMPRESSION RATING</span>
+                <strong id="hud-compression">Up to 25% Axial</strong>
+              </div>
+              <div class="spec-quick-item">
+                <span class="spec-label">TEMP LIMIT</span>
+                <strong id="hud-temp">135°C (HT Certified)</strong>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- Right Column: Colour Palette, Search & Masterbatch Library -->
+          <div class="studio-palette-panel">
+            
+            <div class="palette-top">
+              <div>
+                <p class="panel-eyebrow">OFFICIAL SUPPLY SHADES</p>
+                <h3 class="panel-title">Masterbatch Palette</h3>
+              </div>
+              <span class="palette-counter" id="palette-count-badge">20 SHADES</span>
+            </div>
+
+            <!-- Quick Action Controls: Compare Two Shades & Dark Mill Stage in place of search -->
+            <div class="palette-quick-actions">
+              <button id="btn-toggle-compare" class="btn-studio-action" title="Compare two shades side by side" aria-pressed="false">
+                <span class="action-icon">⮂</span>
+                <span id="compare-btn-text">Compare Two Shades</span>
+              </button>
+              <button id="btn-toggle-backdrop" class="btn-studio-action" title="Toggle Dark Mill Stage contrast" aria-pressed="false">
+                <span class="action-icon" id="backdrop-action-icon">🌙</span>
+                <span id="backdrop-btn-text">Dark Mill Stage</span>
+              </button>
+            </div>
+
+            <!-- Swatches Grid (All 20 Shades in Single View) -->
+            <div class="swatches-container">
+              <div class="swatches-grid" id="swatches-grid" role="radiogroup" aria-label="Colour Swatches">
+                <!-- 20 Swatch items inserted via JavaScript -->
+              </div>
+            </div>
+
+            <!-- Active Selection Detail -->
+            <div class="selection-summary-card">
+              <div class="selected-product-header">
+                <div class="summary-chip" id="summary-color-chip" style="background-color: #E3000F;"></div>
+                <div class="summary-details">
+                  <h4 id="summary-title">Traffic Red · R3020</h4>
+                  <p id="summary-subtitle"><span id="summary-ral-badge-text" class="ral-badge-pill">RAL 3020</span> · <span id="summary-pdf-label">R3020 | Traffic Red</span></p>
+                </div>
+                <span class="status-verified" id="summary-spec-tag">Official Supply</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ENGINEERING EXCELLENCE & LIQUOR FLOW SECTION -->
+    <section class="engineering-section">
+      <div class="container">
+        
+        <div class="eng-grid">
+          <div class="eng-text-col">
+            <span class="section-eyebrow">HYDRAULIC FLOW DYNAMICS</span>
+            <h2 class="section-title">Designed for Complete Dye Uniformity</h2>
+            <p class="eng-lead">
+              In high-pressure package dyeing machines, uneven liquor circulation causes shade variations from the inside core to the outside circumference. Autotex tubes solve this at the root.
+            </p>
+
+            <div class="eng-features-list">
+              <div class="eng-feat-item">
+                <div class="feat-icon-box">01</div>
+                <div>
+                  <h4>Optimized Staggered Apertures</h4>
+                  <p>Our proprietary matrix perforation delivers uniform hydraulic cross-flow pressure across every winding layer, reducing cycle time and chemical consumption.</p>
+                </div>
+              </div>
+
+              <div class="eng-feat-item">
+                <div class="feat-icon-box">02</div>
+                <div>
+                  <h4>Smooth Radiused Hole Edges</h4>
+                  <p>Every orifice is precision mold-radiused. No micro-burrs, no sharp plastic edges. Zero fiber snagging during high-speed take-off at 1,200+ m/min.</p>
+                </div>
+              </div>
+
+              <div class="eng-feat-item">
+                <div class="feat-icon-box">03</div>
+                <div>
+                  <h4>Thermal &amp; Chemical Endurance</h4>
+                  <p>Molded with prime virgin polypropylene and nylon blends with proprietary thermal stabilizers, resisting disperse dye carriers, acid baths, and repeated 135°C cycles.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="eng-visual-col">
+            <div class="eng-card-cluster">
+              <img src="Image/d-cones-group.png" alt="Autotex Perforated Cones Group" class="eng-cluster-img">
+              <div class="eng-stat-bubble">
+                <strong>+24%</strong>
+                <span>Higher Liquor Flow Efficiency</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- TECHNICAL SPECIFICATION COMPARISON TABLE -->
+    <section class="specs-section" id="specs">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">COMPREHENSIVE ENGINEERING DATA</span>
+          <h2 class="section-title">Technical Specification Matrix</h2>
+          <p class="section-subtitle">
+            Compare mechanical parameters, thermal limits, and application compatibility across the 5 Autotex profiles.
+          </p>
+        </div>
+
+        <div class="specs-table-wrapper">
+          <table class="specs-table" aria-label="Technical comparison of Autotex dye tubes and cones">
+            <thead>
+              <tr>
+                <th>Specification</th>
+                <th>D-SPRING</th>
+                <th>D-STIFF</th>
+                <th>D-STACK</th>
+                <th>D-CONE</th>
+                <th>S-CONE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="spec-prop">Primary Type</td>
+                <td><span class="badge-table red">Compressible</span></td>
+                <td><span class="badge-table">Rigid Barrel</span></td>
+                <td><span class="badge-table">Stackable</span></td>
+                <td><span class="badge-table">Perforated Cone</span></td>
+                <td><span class="badge-table">Sale Yarn Cone</span></td>
+              </tr>
+              <tr>
+                <td class="spec-prop">Material Formulation</td>
+                <td>Virgin Polypropylene / PA66</td>
+                <td>Heavy-Duty High-Impact PP</td>
+                <td>Engineering Grade Copolymer</td>
+                <td>Virgin Polypropylene</td>
+                <td>High-Impact Polystyrene / PP</td>
+              </tr>
+              <tr>
+                <td class="spec-prop">Max Operating Temp</td>
+                <td>135°C (275°F)</td>
+                <td>135°C (275°F)</td>
+                <td>130°C (266°F)</td>
+                <td>135°C (275°F)</td>
+                <td>95°C (Ambient Winding)</td>
+              </tr>
+              <tr>
+                <td class="spec-prop">Axial Compression</td>
+                <td>Up to 25% (Controlled)</td>
+                <td>0% (Rigid Dimension)</td>
+                <td>Interlocking Stack (0%)</td>
+                <td>0% (Rigid Taper)</td>
+                <td>0% (Solid Cone)</td>
+              </tr>
+              <tr>
+                <td class="spec-prop">Surface Texture</td>
+                <td>Lattice Open Matrix</td>
+                <td>Diamond Open Perforation</td>
+                <td>Square Ribbed Grid</td>
+                <td>Perforated Round Matrix</td>
+                <td>Micro-Grooved Velvet Grip</td>
+              </tr>
+              <tr>
+                <td class="spec-prop">Machine Compatibility</td>
+                <td>Thies, Fong's, Loris Bellini</td>
+                <td>All Standard H.T. Vessels</td>
+                <td>Spindle Dyeing Systems</td>
+                <td>Cone Dyeing Spindles</td>
+                <td>Murata, Savio, Schlafhorst</td>
+              </tr>
+              <tr>
+                <td class="spec-prop">Typical Applications</td>
+                <td>Cotton, Polyester, Blends</td>
+                <td>Textured Filament, Acrylic</td>
+                <td>Continuous High-Speed Dyeing</td>
+                <td>Cotton, Sewing Thread, Rayon</td>
+                <td>Weaving &amp; Knitting Sale Yarn</td>
+              </tr>
+              <tr>
+                <td class="spec-prop">Autoclave Reusability</td>
+                <td>Multiple Cycles</td>
+                <td>High-Cycle Reusable</td>
+                <td>High-Cycle Reusable</td>
+                <td>Single or Multi-Cycle</td>
+                <td>Multi-Trip Package</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="specs-download-bar">
+          <div>
+            <h4>Need Customized Dimensions or Special Polymers?</h4>
+            <p>Autotex in-house R&amp;D designs bespoke molds for unique spindle gauges, traverse lengths, and high-temp dyehouse requirements.</p>
+          </div>
+          <div class="specs-download-actions">
+            <a href="Image/3.pdf" target="_blank" class="btn btn-outline-white">
+              View Catalog PDF (3.pdf) ↗
+            </a>
+            <button class="btn btn-primary-red" onclick="openSampleModal()">
+              Inquire Custom Mold
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- GLOBAL TRUST & QUALITY CERTIFICATION SECTION -->
+    <section class="trust-section">
+      <div class="container">
+        <div class="trust-grid">
+          
+          <div class="trust-card">
+            <div class="trust-icon">★</div>
+            <h3>25+ Years Legacy</h3>
+            <p>Over two decades of precision molding leadership catering to world-class textile mills across India and global spinning hubs.</p>
+          </div>
+
+          <div class="trust-card">
+            <div class="trust-icon">⚙</div>
+            <h3>In-House Tooling &amp; R&amp;D</h3>
+            <p>State-of-the-art CNC toolroom and robotic injection molding machines ensure micron-level concentricity and zero eccentricity.</p>
+          </div>
+
+          <div class="trust-card">
+            <div class="trust-icon">✓</div>
+            <h3>Rigorous Quality Audit</h3>
+            <p>Every batch undergoes thermal endurance tests, compression-recovery cyclic loading, and chemical immersion verification.</p>
+          </div>
+
+          <div class="trust-card">
+            <div class="trust-icon">♻</div>
+            <h3>100% Recyclable Polymers</h3>
+            <p>Eco-responsible manufacturing utilizing prime virgin polymers with complete traceability and sustainable recycling loops.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- CORPORATE FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="container footer-grid">
+        
+        <!-- Company Bio -->
+        <div class="footer-col col-brand">
+          <img src="Image/autotex-logo.png" alt="Autotex" class="footer-logo">
+          <p class="footer-bio">
+            Autotex has been serving the global textile industry for more than two decades, recognized as the premier benchmark for high-performance plastic machinery components.
+          </p>
+          <div class="footer-cert-badge">
+            <span class="cert-icon">✓</span>
+            <div>
+              <strong>ISO 9001:2015 CERTIFIED</strong>
+              <small>Quality Management System</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Textile Divisions -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Textile Solutions</h4>
+          <ul class="footer-links">
+            <li><a href="#studio">Dye Tubes &amp; Cones (Colour Studio)</a></li>
+            <li><a href="https://autotex.net/textile/" target="_blank">Bobbin Holders</a></li>
+            <li><a href="https://autotex.net/textile/" target="_blank">Simplex Bobbins</a></li>
+            <li><a href="https://autotex.net/textile/" target="_blank">Ring Spinning Tubes</a></li>
+            <li><a href="https://autotex.net/textile/" target="_blank">Cots &amp; Aprons Handling</a></li>
+            <li><a href="https://autotex.net/textile/" target="_blank">Material Transport Trays</a></li>
+          </ul>
+        </div>
+
+        <!-- Corporate Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Corporate Info</h4>
+          <ul class="footer-links">
+            <li><a href="https://autotex.net/corporate/" target="_blank">About Autotex</a></li>
+            <li><a href="https://autotex.net/infrastructure/" target="_blank">Manufacturing Infrastructure</a></li>
+            <li><a href="https://autotex.net/quality-systems/" target="_blank">Quality Systems &amp; Lab</a></li>
+            <li><a href="https://autotex.net/achievements/" target="_blank">Awards &amp; Milestones</a></li>
+            <li><a href="https://autotex.net/network/" target="_blank">Global Network &amp; Agents</a></li>
+            <li><a href="Image/3.pdf" target="_blank">Download Product Catalog (PDF)</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact & Registered Office -->
+        <div class="footer-col col-contact">
+          <h4 class="footer-heading">Registered Office</h4>
+          <address class="footer-address">
+            <strong>AUTOTEX</strong><br>
+            13/20, Sitra Road, Kalapatti,<br>
+            Coimbatore – 641 048,<br>
+            Tamil Nadu, India.
+          </address>
+          <div class="footer-contact-lines">
+            <p><strong>Phone:</strong> <a href="tel:+914222627681">+91 422 262 7681 / 82</a></p>
+            <p><strong>Email:</strong> <a href="mailto:info@autotex.net">info@autotex.net</a></p>
+            <p><strong>Web:</strong> <a href="https://autotex.net/" target="_blank">www.autotex.net</a></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer Bottom Bar -->
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p class="copyright">
+          &copy; 2026 <strong>AUTOTEX</strong>. All Rights Reserved. The Best Solution For All Industrial &amp; Textile Businesses.
+        </p>
+        <div class="footer-bottom-links">
+          <a href="https://autotex.net/privacy-policy/" target="_blank">Privacy Policy</a>
+          <span class="sep">·</span>
+          <a href="https://autotex.net/terms-conditions/" target="_blank">Terms of Use</a>
+          <span class="sep">·</span>
+          <a href="#hero">Back to Top ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- MODAL: REQUEST PHYSICAL LAB SAMPLES & QUOTE -->
+  <div class="modal-backdrop" id="sample-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <span class="modal-tag">PHYSICAL SAMPLE REQUEST</span>
+          <h3 id="modal-title" class="modal-title">Request Dye Package Samples</h3>
+        </div>
+        <button class="modal-close" id="modal-close-btn" aria-label="Close dialog">×</button>
+      </div>
+
+      <form id="sample-request-form" class="modal-body" onsubmit="handleSampleSubmit(event)">
+        
+        <!-- Pre-filled configured selection -->
+        <div class="modal-selection-preview">
+          <div class="preview-swatch-box" id="modal-swatch-box" style="background-color: #ED1C24;"></div>
+          <div>
+            <strong id="modal-prod-name">D-SPRING (Compressible Dye Tube)</strong>
+            <p id="modal-color-name">Configured Colour: Autotex Red (AT-SIG-01 · #ED1C24)</p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="modal-input-name">Contact Person *</label>
+            <input type="text" id="modal-input-name" required placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label for="modal-input-mill">Spinning / Dyeing Mill Name *</label>
+            <input type="text" id="modal-input-mill" required placeholder="e.g. Apex Textiles Ltd.">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="modal-input-email">Corporate Email *</label>
+            <input type="email" id="modal-input-email" required placeholder="manager@mill.com">
+          </div>
+          <div class="form-group">
+            <label for="modal-input-phone">Phone / WhatsApp *</label>
+            <input type="tel" id="modal-input-phone" required placeholder="+91 98765 43210">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="modal-input-country">Country / Region *</label>
+            <input type="text" id="modal-input-country" required placeholder="e.g. India, Turkey, Egypt, Vietnam">
+          </div>
+          <div class="form-group">
+            <label for="modal-input-spindles">Estimated Dye Spindle Requirement</label>
+            <select id="modal-input-spindles">
+              <option value="Evaluation Samples (10 - 50 pcs)">Evaluation Samples (10 - 50 pcs)</option>
+              <option value="Trial Batch (500 - 2,000 pcs)">Trial Batch (500 - 2,000 pcs)</option>
+              <option value="Commercial Lot (5,000+ pcs)">Commercial Lot (5,000+ pcs)</option>
+              <option value="New Mill Project / Spindle Replacement">New Mill Project / Spindle Replacement</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-input-yarn">Yarn Type &amp; Dyeing Temperature (°C)</label>
+          <input type="text" id="modal-input-yarn" placeholder="e.g. 100% Combed Cotton, 130°C High-Pressure Dyeing">
+        </div>
+
+        <div class="form-group">
+          <label for="modal-input-notes">Special Requirements / Custom Dimensions</label>
+          <textarea id="modal-input-notes" rows="3" placeholder="Provide any special instructions, gauge sizes, or custom masterbatch shade requirements..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="modal-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary-red">
+            Submit Sample Request ↗
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification" role="status" aria-live="polite"></div>
+
+  <!-- Three.js 3D Engine for Authentic 360° Cylindrical & Conical Meshes -->
+  <script src="three.min.js"></script>
+  <!-- GLTF Loader for Real Factory CAD Models (.glb) -->
+  <script src="GLTFLoader.js"></script>
+  <!-- Main Application Script -->
+  <!-- Offline Factory CAD Bundle (Enables running from local disk file:/// with zero CORS issues) -->
+  <script src="models/cad_bundle.js"></script>
+  <!-- Main Application Script -->
+  <script src="app.js?v=open_v5"></script>
+</body>
+</html>

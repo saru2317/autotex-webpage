@@ -3077,3 +3077,50 @@ button, input, select, textarea {
   letter-spacing: 0.02em;
 }
 
+
+/* ==========================================================================
+   CLEAN STUDIO ONLY EMBED MODE (for https://autotex.net/shades/)
+   ========================================================================== */
+body.studio-only-mode {
+  background: #FFFFFF;
+  margin: 0;
+  padding: 10px 0 24px 0;
+  min-height: auto;
+  overflow-x: hidden;
+}
+
+.studio-standalone-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.studio-standalone-wrapper .studio-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.studio-only-mode .product-selector-bar {
+  margin-bottom: 16px;
+}
+
+.studio-only-mode .studio-viewport-panel {
+  padding: 16px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--slate-200);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.studio-only-mode .viewport-stage {
+  margin: 0;
+  min-height: 570px;
+  height: 570px;
+  border-radius: 12px;
+}
+
+.studio-only-mode .threejs-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
