@@ -999,7 +999,18 @@
                     (modelKey === 'd-cone') ? `models/d_cone.glb?${cadVersion}` :
                     (modelKey === 's-cone') ? `models/s_cone.glb?${cadVersion}` : null;
 
-    if (hasCAD && gltfLoaderInstance && cadPath) {
+
+  // Helper to convert base64 to ArrayBuffer for in-memory GLTF parsing
+  function base64ToArrayBuffer(base64) {
+    const binaryString = window.atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
+  }
+    if (hasCAD && gltfLoaderInstance) {
       if (loadedCADGeometries[modelKey]) {
         // CAD already loaded and cached: clone and apply dynamic masterbatch material
         const cadClone = loadedCADGeometries[modelKey].clone(true);
@@ -1023,11 +1034,37 @@
         });
         meshGroup.add(cadClone);
         return;
-      } else {
-        // Load CAD model asynchronously
+      } else if (window.AUTOTEX_CAD_BUNDLE && window.AUTOTEX_CAD_BUNDLE[modelKey]) {
+        // Instant in-memory parse from offline bundle (Works on file:/// with ZERO CORS restrictions!)
+        try {
+          const buffer = base64ToArrayBuffer(window.AUTOTEX_CAD_BUNDLE[modelKey]);
+          gltfLoaderInstance.parse(buffer, '', (gltf) => {
+            const cadRoot = gltf.scene || gltf.scenes[0];
+            const cadScale = 0.1006;
+            cadRoot.scale.set(cadScale, cadScale, cadScale);
+            cadRoot.position.set(0, 0, 0);
+
+            cadRoot.traverse((child) => {
+              if (child.isMesh && child.geometry) {
+                child.geometry.computeVertexNormals();
+              }
+            });
+
+            loadedCADGeometries[modelKey] = cadRoot;
+            if (currentModelKey === modelKey) {
+              update3DProduct(modelKey, hexColor);
+            }
+          }, (err) => {
+            console.warn('CAD bundle parse error, falling back:', err);
+          });
+          return;
+        } catch (e) {
+          console.warn('Offline bundle decoding error:', e);
+        }
+      } else if (cadPath) {
+        // Fallback to network fetch (for http / https / Vercel)
         gltfLoaderInstance.load(cadPath, (gltf) => {
           const cadRoot = gltf.scene || gltf.scenes[0];
-          // Scale raw CAD dimensions (height ~169.0mm - 170.0mm) to scene units (~17.0 units)
           const cadScale = 0.1006;
           cadRoot.scale.set(cadScale, cadScale, cadScale);
           cadRoot.position.set(0, 0, 0);
@@ -1039,7 +1076,6 @@
           });
 
           loadedCADGeometries[modelKey] = cadRoot;
-          // Re-render if this is still the active model
           if (currentModelKey === modelKey) {
             update3DProduct(modelKey, hexColor);
           }
