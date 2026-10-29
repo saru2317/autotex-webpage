@@ -3124,3 +3124,28 @@ body.studio-only-mode {
   width: 100% !important;
   height: 100% !important;
 }
+
+/* Compare Active Candidate Slot Highlights */
+.compare-column {
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 14px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 2px solid transparent;
+}
+.compare-column:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+.compare-column.active-compare-slot {
+  background: rgba(221, 43, 28, 0.06);
+  border-color: rgba(221, 43, 28, 0.45);
+  box-shadow: 0 4px 14px rgba(221, 43, 28, 0.12);
+}
+body.backdrop-dark .compare-column:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+body.backdrop-dark .compare-column.active-compare-slot {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}

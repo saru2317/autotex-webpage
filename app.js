@@ -127,6 +127,7 @@
   let currentModelKey = 'd-spring';
   let primaryColorIndex = 0; // Autotex Red
   let compareColorIndex = 1; // Industrial Yellow
+  let activeCompareSlot = 'B'; // 'A' or 'B'
   let isComparing = false;
   let currentBackdrop = 'light'; // 'light', 'dark', 'black'
   let isDarkBackdrop = false;
@@ -178,6 +179,10 @@
     hudCompression: document.getElementById('hud-compression'),
     hudTemp: document.getElementById('hud-temp'),
     // Compare Viewport Elements
+    compareCanvasA: document.getElementById('compare-canvas-a'),
+    compareCanvasB: document.getElementById('compare-canvas-b'),
+    compareColA: document.getElementById('compare-col-a'),
+    compareColB: document.getElementById('compare-col-b'),
     compareDisplayA: document.getElementById('compare-display-a'),
     compareNameA: document.getElementById('compare-name-a'),
     compareCodeA: document.getElementById('compare-code-a'),
@@ -396,13 +401,32 @@
 
     // 6. Update Comparison Mode Stages if active
     if (isComparing) {
-      el.compareDisplayA.src = `Image/tints/${prod.id}_${primaryColor.code}.png`;
-      el.compareNameA.textContent = primaryColor.name;
-      el.compareCodeA.textContent = `${primaryColor.code} · ${primaryColor.hex}`;
+      const safeCodeA = (primaryColor.code || '').replace(' ', '_');
+      const safeCodeB = (compareColor.code || '').replace(' ', '_');
+      const tintPathA = `Image/tints/${prod.id}_${safeCodeA}.png`;
+      const tintPathB = `Image/tints/${prod.id}_${safeCodeB}.png`;
 
-      el.compareDisplayB.src = `Image/tints/${prod.id}_${compareColor.code}.png`;
-      el.compareNameB.textContent = compareColor.name;
-      el.compareCodeB.textContent = `${compareColor.code} · ${compareColor.hex}`;
+      if (el.compareCanvasA) {
+        renderCompareCanvas(el.compareCanvasA, prod, primaryColor.hex);
+      }
+      if (el.compareDisplayA) {
+        el.compareDisplayA.src = tintPathA;
+        el.compareDisplayA.style.display = el.compareCanvasA ? 'none' : 'block';
+      }
+      if (el.compareNameA) el.compareNameA.textContent = primaryColor.name;
+      if (el.compareCodeA) el.compareCodeA.textContent = `${primaryColor.code} · ${primaryColor.hex}`;
+
+      if (el.compareCanvasB) {
+        renderCompareCanvas(el.compareCanvasB, prod, compareColor.hex);
+      }
+      if (el.compareDisplayB) {
+        el.compareDisplayB.src = tintPathB;
+        el.compareDisplayB.style.display = el.compareCanvasB ? 'none' : 'block';
+      }
+      if (el.compareNameB) el.compareNameB.textContent = compareColor.name;
+      if (el.compareCodeB) el.compareCodeB.textContent = `${compareColor.code} · ${compareColor.hex}`;
+
+      updateCompareSlotHighlights();
     }
 
     // 7. Sync Custom Color Input Values (if present)
@@ -427,6 +451,31 @@
       baseImg = new Image();
       baseImg.src = prod.baseImage;
       baseImg.onload = () => drawTintToCanvas(canvas, baseImg, hexColor);
+    } else {
+      drawTintToCanvas(canvas, baseImg, hexColor);
+    }
+  }
+
+  function updateCompareSlotHighlights() {
+    if (el.compareColA) {
+      el.compareColA.classList.toggle('active-compare-slot', activeCompareSlot === 'A');
+    }
+    if (el.compareColB) {
+      el.compareColB.classList.toggle('active-compare-slot', activeCompareSlot === 'B');
+    }
+  }
+
+  function renderCompareCanvas(canvas, prod, hexColor) {
+    if (!canvas || !prod) return;
+    canvas.style.display = 'block';
+    let baseImg = baseImgCache[prod.id];
+    if (!baseImg || !baseImg.complete) {
+      baseImg = new Image();
+      baseImg.src = prod.baseImage;
+      baseImg.onload = () => {
+        baseImgCache[prod.id] = baseImg;
+        drawTintToCanvas(canvas, baseImg, hexColor);
+      };
     } else {
       drawTintToCanvas(canvas, baseImg, hexColor);
     }
@@ -469,13 +518,17 @@
     el.swatchesGrid.innerHTML = '';
 
     PALETTE.forEach((item, index) => {
-      const isSelected = !customHexColor && (isComparing ? index === compareColorIndex : index === primaryColorIndex);
+      const isSelected = !customHexColor && (
+        isComparing
+          ? (activeCompareSlot === 'A' ? index === primaryColorIndex : index === compareColorIndex)
+          : index === primaryColorIndex
+      );
 
       const btn = document.createElement('button');
       btn.className = `swatch-btn ${isSelected ? 'selected' : ''}`;
       btn.setAttribute('role', 'radio');
       btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
-      btn.setAttribute('title', `${item.fullLabel} (${item.ral}) - ${item.hex}`);
+      btn.setAttribute('title', `${item.fullLabel} - ${item.hex}`);
 
       const ralTag = `<span class="swatch-ral">${item.code}</span>`;
 
@@ -491,11 +544,16 @@
       btn.onclick = () => {
         customHexColor = null; // Clear custom color override
         if (isComparing) {
-          compareColorIndex = index;
-          showToast(`Candidate B: ${item.fullLabel} (${item.ral})`);
+          if (activeCompareSlot === 'A') {
+            primaryColorIndex = index;
+            showToast(`Selection A: ${item.fullLabel}`);
+          } else {
+            compareColorIndex = index;
+            showToast(`Candidate B: ${item.fullLabel}`);
+          }
         } else {
           primaryColorIndex = index;
-          showToast(`Applied: ${item.fullLabel} (${item.ral})`);
+          showToast(`Applied: ${item.fullLabel}`);
         }
         updateStudio();
       };
@@ -547,6 +605,24 @@
       showToast(`Selected ${PRODUCTS[modelKey].name} in Colour Studio`);
     }
   };
+
+  // Column click selection for Compare Mode
+  if (el.compareColA) {
+    el.compareColA.addEventListener('click', () => {
+      activeCompareSlot = 'A';
+      updateCompareSlotHighlights();
+      renderSwatches();
+      showToast('Selected Side A: Choose shade from palette');
+    });
+  }
+  if (el.compareColB) {
+    el.compareColB.addEventListener('click', () => {
+      activeCompareSlot = 'B';
+      updateCompareSlotHighlights();
+      renderSwatches();
+      showToast('Selected Side B: Choose shade from palette');
+    });
+  }
 
   // Toggle Comparison Mode (in place of search)
   if (el.btnToggleCompare) {
@@ -729,20 +805,20 @@
       return;
     }
 
-    // 4. Studio Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.82);
+    // 4. Studio Lighting - Calibrated Neutral D65 Studio Lighting (Zero blue tint, 100% color accuracy)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.78);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.15);
-    keyLight.position.set(12, 18, 15);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 0.38);
+    keyLight.position.set(10, 16, 14);
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0xbfdbfe, 0.65);
-    fillLight.position.set(-14, 10, -12);
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.22);
+    fillLight.position.set(-12, 8, -10);
     scene.add(fillLight);
 
-    const topSpot = new THREE.DirectionalLight(0xffffff, 0.45);
-    topSpot.position.set(0, 24, 4);
+    const topSpot = new THREE.DirectionalLight(0xffffff, 0.12);
+    topSpot.position.set(0, 20, 2);
     scene.add(topSpot);
 
     // Floor Contact Shadow Mesh
@@ -954,18 +1030,18 @@
     }
     active3DMaterials = [];
 
-    const color = new THREE.Color(hexColor);
+    const color = new THREE.Color(hexColor).convertSRGBToLinear();
     const darkInteriorColor = color.clone().multiplyScalar(0.48);
 
     const latticeTex = getLatticeTexture(modelKey);
 
     const mainMat = new THREE.MeshStandardMaterial({
       color: color,
-      roughness: 0.35,
-      metalness: 0.08,
+      roughness: 0.48,
+      metalness: 0.0,
       alphaMap: modelKey !== 's-cone' ? latticeTex : null,
       bumpMap: modelKey === 's-cone' ? latticeTex : null,
-      bumpScale: 0.04,
+      bumpScale: 0.03,
       transparent: modelKey !== 's-cone',
       alphaTest: modelKey !== 's-cone' ? 0.35 : 0.0,
       side: THREE.DoubleSide
@@ -973,15 +1049,15 @@
 
     const collarMat = new THREE.MeshStandardMaterial({
       color: color,
-      roughness: 0.35,
-      metalness: 0.08,
+      roughness: 0.48,
+      metalness: 0.0,
       side: THREE.DoubleSide
     });
 
     const innerMat = new THREE.MeshStandardMaterial({
       color: darkInteriorColor,
-      roughness: 0.45,
-      metalness: 0.05,
+      roughness: 0.55,
+      metalness: 0.0,
       side: THREE.BackSide,
       clippingPlanes: (isCutawayActive && cutawayPlane) ? [cutawayPlane] : []
     });
@@ -1020,10 +1096,10 @@
             }
             child.material = new THREE.MeshStandardMaterial({
               color: color,
-              roughness: isSCone ? 0.42 : 0.32,
-              metalness: 0.05,
+              roughness: isSCone ? 0.50 : 0.46,
+              metalness: 0.0,
               bumpMap: isSCone ? latticeTex : null,
-              bumpScale: isSCone ? 0.035 : 0.0,
+              bumpScale: isSCone ? 0.03 : 0.0,
               side: THREE.DoubleSide,
               clippingPlanes: (isCutawayActive && cutawayPlane) ? [cutawayPlane] : []
             });
@@ -1244,8 +1320,8 @@
 
   function update3DColor(hexColor) {
     if (!window.THREE) return;
-    const color = new THREE.Color(hexColor);
-    const darkColor = color.clone().multiplyScalar(0.52);
+    const color = new THREE.Color(hexColor).convertSRGBToLinear();
+    const darkColor = color.clone().multiplyScalar(0.48);
 
     if (active3DMaterials && active3DMaterials.length) {
       active3DMaterials.forEach(m => {

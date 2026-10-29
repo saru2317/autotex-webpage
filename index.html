@@ -111,11 +111,12 @@
             <!-- Comparison View (Side-by-Side) -->
             <div class="stage-compare" id="stage-compare" style="display: none;">
               <!-- Primary Item -->
-              <div class="compare-column">
-                <div class="compare-tag">PRIMARY SELECTION</div>
+              <div class="compare-column active-compare-slot" id="compare-col-a" style="cursor: pointer;" title="Click to choose shade for Selection A">
+                <div class="compare-tag">SELECTION A</div>
                 <div class="compare-render-stage">
                   <div class="stage-pedestal-shadow small"></div>
-                  <img id="compare-display-a" src="Image/tints/d-spring_R3020.png" alt="Primary Variant" class="product-display-img">
+                  <canvas id="compare-canvas-a" class="product-display-img product-custom-canvas" width="200" height="400"></canvas>
+                  <img id="compare-display-a" src="Image/tints/d-spring_485_C.png" alt="Selection A" class="product-display-img" style="display: none;">
                 </div>
                 <div class="compare-info">
                   <strong id="compare-name-a">Vivid Red</strong>
@@ -126,15 +127,16 @@
               <div class="compare-vs-badge">VS</div>
 
               <!-- Secondary Item -->
-              <div class="compare-column">
-                <div class="compare-tag">COMPARISON CANDIDATE</div>
+              <div class="compare-column" id="compare-col-b" style="cursor: pointer;" title="Click to choose shade for Candidate B">
+                <div class="compare-tag">CANDIDATE B</div>
                 <div class="compare-render-stage">
                   <div class="stage-pedestal-shadow small"></div>
-                  <img id="compare-display-b" src="Image/tints/d-spring_R5002.png" alt="Comparison Variant" class="product-display-img">
+                  <canvas id="compare-canvas-b" class="product-display-img product-custom-canvas" width="200" height="400"></canvas>
+                  <img id="compare-display-b" src="Image/tints/d-spring_662_C.png" alt="Candidate B" class="product-display-img" style="display: none;">
                 </div>
                 <div class="compare-info">
-                  <strong id="compare-name-b">Marine Blue</strong>
-                  <span id="compare-code-b">R5002 · RAL 5002</span>
+                  <strong id="compare-name-b">Deep Blue</strong>
+                  <span id="compare-code-b">Pantone 662 C</span>
                 </div>
               </div>
             </div>
