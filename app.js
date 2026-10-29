@@ -89,38 +89,38 @@
   };
 
   // =========================================================================
-  // 2. MASTERBATCH COLOUR LIBRARY (Official Autotex Supply Shades from PDF)
+  // 2. MASTERBATCH COLOUR LIBRARY (Official Autotex Shades from at-dtc-20p-ecat.pdf)
   // =========================================================================
   const PALETTE = [
     // Row 1
-    { code: 'R3020', name: 'Traffic Red', hex: '#E3000F', ral: 'RAL 3020', isRal: true, family: 'RAL Standard', fullLabel: 'R3020 | Traffic Red' },
-    { code: 'R3015', name: 'Light Pink', hex: '#EDAFB5', ral: 'RAL 3015', isRal: true, family: 'RAL Standard', fullLabel: 'R3015 | Light Pink' },
-    { code: 'P1777', name: 'Baby Pink', hex: '#EA506C', ral: 'Pantone 1777', isRal: false, family: 'Custom Formulation', fullLabel: 'P1777 | Baby Pink' },
-    { code: 'R5002', name: 'Marine Blue', hex: '#232F81', ral: 'RAL 5002', isRal: true, family: 'RAL Standard', fullLabel: 'R5002 | Marine Blue' },
+    { code: '485 C', name: 'Vivid Red', hex: '#DD2B1C', pantone: 'Pantone 485 C', family: 'Red', fullLabel: 'Pantone 485 C | Vivid Red' },
+    { code: '495 C', name: 'Pale Pink', hex: '#F8B6BC', pantone: 'Pantone 495 C', family: 'Pink', fullLabel: 'Pantone 495 C | Pale Pink' },
+    { code: '184 C', name: 'Coral Pink', hex: '#F75974', pantone: 'Pantone 184 C', family: 'Pink', fullLabel: 'Pantone 184 C | Coral Pink' },
+    { code: '662 C', name: 'Deep Blue', hex: '#212A78', pantone: 'Pantone 662 C', family: 'Blue', fullLabel: 'Pantone 662 C | Deep Blue' },
 
     // Row 2
-    { code: 'R1016', name: 'Sulfur Yellow', hex: '#FBEC43', ral: 'RAL 1016', isRal: true, family: 'RAL Standard', fullLabel: 'R1016 | Sulfur Yellow' },
-    { code: 'R1000', name: 'Green Beige', hex: '#E4D3A0', ral: 'RAL 1000', isRal: true, family: 'RAL Standard', fullLabel: 'R1000 | Green Beige' },
-    { code: 'R4008', name: 'Signal Violet', hex: '#913387', ral: 'RAL 4008', isRal: true, family: 'RAL Standard', fullLabel: 'R4008 | Signal Violet' },
-    { code: 'P0226', name: 'Majestic Magenta', hex: '#CE0071', ral: 'Pantone 226', isRal: false, family: 'Custom Formulation', fullLabel: 'P0226 | Majestic Magenta' },
+    { code: '113 C', name: 'Bright Yellow', hex: '#F7E050', pantone: 'Pantone 113 C', family: 'Yellow', fullLabel: 'Pantone 113 C | Bright Yellow' },
+    { code: '467 C', name: 'Warm Beige', hex: '#D7C39E', pantone: 'Pantone 467 C', family: 'Beige', fullLabel: 'Pantone 467 C | Warm Beige' },
+    { code: '254 C', name: 'Violet', hex: '#9D1EAC', pantone: 'Pantone 254 C', family: 'Purple', fullLabel: 'Pantone 254 C | Violet' },
+    { code: '226 C', name: 'Magenta Pink', hex: '#D70081', pantone: 'Pantone 226 C', family: 'Magenta', fullLabel: 'Pantone 226 C | Magenta Pink' },
 
     // Row 3
-    { code: 'P0172', name: 'Red Orange', hex: '#E94D09', ral: 'Pantone 172', isRal: false, family: 'Custom Formulation', fullLabel: 'P0172 | Red Orange' },
-    { code: 'P0333', name: 'Mint Green', hex: '#5EBAAA', ral: 'Pantone 333', isRal: false, family: 'Custom Formulation', fullLabel: 'P0333 | Mint Green' },
-    { code: 'R3016', name: 'Coral Red', hex: '#B12A17', ral: 'RAL 3016', isRal: true, family: 'RAL Standard', fullLabel: 'R3016 | Coral Red' },
-    { code: 'R9005', name: 'Jet Black', hex: '#3B3B3A', ral: 'RAL 9005', isRal: true, family: 'RAL Standard', fullLabel: 'R9005 | Jet Black' },
+    { code: '172 C', name: 'Orange-Red', hex: '#EC520D', pantone: 'Pantone 172 C', family: 'Orange', fullLabel: 'Pantone 172 C | Orange-Red' },
+    { code: '333 C', name: 'Mint Green', hex: '#72DAC6', pantone: 'Pantone 333 C', family: 'Green', fullLabel: 'Pantone 333 C | Mint Green' },
+    { code: '180 C', name: 'Brick Red', hex: '#C33720', pantone: 'Pantone 180 C', family: 'Red', fullLabel: 'Pantone 180 C | Brick Red' },
+    { code: 'BLACK C', name: 'Black', hex: '#2F2B29', pantone: 'Pantone BLACK C', family: 'Black', fullLabel: 'Pantone BLACK C' },
 
     // Row 4
-    { code: 'P0375', name: 'Pista Green', hex: '#95C11B', ral: 'Pantone 375', isRal: false, family: 'Custom Formulation', fullLabel: 'P0375 | Pista Green' },
-    { code: 'P2562', name: 'Plum Lavender', hex: '#C69DC9', ral: 'Pantone 2562', isRal: false, family: 'Custom Formulation', fullLabel: 'P2562 | Plum Lavender' },
-    { code: 'R7005', name: 'Mouse Grey', hex: '#7D8680', ral: 'RAL 7005', isRal: true, family: 'RAL Standard', fullLabel: 'R7005 | Mouse Grey' },
-    { code: 'R8012', name: 'Red Brown', hex: '#66220A', ral: 'RAL 8012', isRal: true, family: 'RAL Standard', fullLabel: 'R8012 | Red Brown' },
+    { code: '375 C', name: 'Lime Green', hex: '#A4D20C', pantone: 'Pantone 375 C', family: 'Green', fullLabel: 'Pantone 375 C | Lime Green' },
+    { code: '257 C', name: 'Pale Purple', hex: '#DAA2E5', pantone: 'Pantone 257 C', family: 'Purple', fullLabel: 'Pantone 257 C | Pale Purple' },
+    { code: 'Cool Grey 9 C', name: 'Cool Grey', hex: '#828484', pantone: 'Pantone Cool Grey 9 C', family: 'Grey', fullLabel: 'Pantone Cool Grey 9 C' },
+    { code: '483 C', name: 'Dark Brown', hex: '#6D2D18', pantone: 'Pantone 483 C', family: 'Brown', fullLabel: 'Pantone 483 C | Dark Brown' },
 
     // Row 5
-    { code: 'P2975', name: 'Sky Blue', hex: '#A3D2E3', ral: 'Pantone 2975', isRal: false, family: 'Custom Formulation', fullLabel: 'P2975 | Sky Blue' },
-    { code: 'P7515', name: 'Copper Brown', hex: '#BF8471', ral: 'Pantone 7515', isRal: false, family: 'Custom Formulation', fullLabel: 'P7515 | Copper Brown' },
-    { code: 'R1015', name: 'Light Ivory', hex: '#F5E7D2', ral: 'RAL 1015', isRal: true, family: 'RAL Standard', fullLabel: 'R1015 | Light Ivory' },
-    { code: 'R6001', name: 'Emerald Green', hex: '#387D33', ral: 'RAL 6001', isRal: true, family: 'RAL Standard', fullLabel: 'R6001 | Emerald Green' }
+    { code: '304 C', name: 'Sky Blue', hex: '#9EE1E9', pantone: 'Pantone 304 C', family: 'Blue', fullLabel: 'Pantone 304 C | Sky Blue' },
+    { code: '7515 C', name: 'Terracotta', hex: '#C9916E', pantone: 'Pantone 7515 C', family: 'Brown', fullLabel: 'Pantone 7515 C | Terracotta' },
+    { code: '726 C', name: 'Warm Beige', hex: '#F7D7BB', pantone: 'Pantone 726 C', family: 'Beige', fullLabel: 'Pantone 726 C | Warm Beige' },
+    { code: '363 C', name: 'Grass Green', hex: '#288D01', pantone: 'Pantone 363 C', family: 'Green', fullLabel: 'Pantone 363 C | Grass Green' }
   ];
 
   // Application State
@@ -377,8 +377,8 @@
     if (el.hudTemp) el.hudTemp.textContent = prod.temp;
 
     // 5. Update Selection Summary Card (Showing Name, RAL Code & Code as per PDF)
-    el.summaryColorChip.style.backgroundColor = primaryColor.hex;
-    el.summaryTitle.textContent = `${primaryColor.name} · ${primaryColor.code}`;
+    if (el.summaryColorChip) el.summaryColorChip.style.backgroundColor = primaryColor.hex;
+    if (el.summaryTitle) el.summaryTitle.textContent = `${primaryColor.name} · ${primaryColor.code}`;
     if (el.summaryRalBadgeText) {
       el.summaryRalBadgeText.textContent = primaryColor.isRal ? primaryColor.ral : `${primaryColor.code} (Pantone)`;
     }
@@ -477,9 +477,7 @@
       btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
       btn.setAttribute('title', `${item.fullLabel} (${item.ral}) - ${item.hex}`);
 
-      const ralTag = item.isRal 
-        ? `<span class="swatch-ral">${item.ral}</span>` 
-        : `<span class="swatch-ral" style="color:#6366F1;background:rgba(99,102,241,0.08);">${item.code}</span>`;
+      const ralTag = `<span class="swatch-ral">${item.code}</span>`;
 
       btn.innerHTML = `
         <span class="swatch-circle" style="background-color: ${item.hex};">
@@ -1891,14 +1889,19 @@ MANUFACTURER CONTACT:
   if (el.openSampleModalBtn) {
     el.openSampleModalBtn.addEventListener('click', window.openSampleModal);
   }
-  el.modalCloseBtn.addEventListener('click', closeSampleModal);
-  el.modalCancelBtn.addEventListener('click', closeSampleModal);
-
-  el.sampleModal.addEventListener('click', (e) => {
-    if (e.target === el.sampleModal) {
-      closeSampleModal();
-    }
-  });
+  if (el.modalCloseBtn) {
+    el.modalCloseBtn.addEventListener('click', closeSampleModal);
+  }
+  if (el.modalCancelBtn) {
+    el.modalCancelBtn.addEventListener('click', closeSampleModal);
+  }
+  if (el.sampleModal) {
+    el.sampleModal.addEventListener('click', (e) => {
+      if (e.target === el.sampleModal) {
+        closeSampleModal();
+      }
+    });
+  }
 
   window.handleSampleSubmit = function (e) {
     e.preventDefault();
@@ -1923,19 +1926,21 @@ MANUFACTURER CONTACT:
   let toastTimer = null;
   function showToast(msg) {
     if (toastTimer) clearTimeout(toastTimer);
-    el.toast.textContent = msg;
-    el.toast.classList.add('show');
-    toastTimer = setTimeout(() => {
-      el.toast.classList.remove('show');
-    }, 3800);
+    if (el.toast) {
+      el.toast.textContent = msg;
+      el.toast.classList.add('show');
+      toastTimer = setTimeout(() => {
+        if (el.toast) el.toast.classList.remove('show');
+      }, 3800);
+    }
   }
 
   // =========================================================================
   // 6. INITIALIZATION
   // =========================================================================
   // Ensure compare view is initially hidden
-  el.stageSingle.style.display = 'flex';
-  el.stageCompare.style.display = 'none';
+  if (el.stageSingle) el.stageSingle.style.display = 'flex';
+  if (el.stageCompare) el.stageCompare.style.display = 'none';
 
   initThreeJS();
   updateStudio();
