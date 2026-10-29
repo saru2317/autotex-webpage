@@ -3115,8 +3115,8 @@ body.studio-only-mode {
 
 .studio-only-mode .viewport-stage {
   margin: 0;
-  min-height: 570px;
-  height: 570px;
+  min-height: 480px;
+  height: 480px;
   border-radius: 12px;
 }
 
@@ -3148,4 +3148,128 @@ body.backdrop-dark .compare-column.active-compare-slot {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.45);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* Floating Inspection Toolbar (Reset, Top/Center/Base Focus, Zoom) */
+.stage-floating-toolbar.stage-reset-bar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(203, 213, 225, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 4px 8px;
+}
+
+body.backdrop-dark .stage-floating-toolbar.stage-reset-bar {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.stage-tool-group {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.stage-tool-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(148, 163, 184, 0.35);
+  margin: 0 4px;
+}
+
+body.backdrop-dark .stage-tool-divider {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.focus-pill-btn {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 6px;
+  color: var(--slate-700);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.focus-pill-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--brand-red);
+}
+
+.focus-pill-btn.active {
+  background: var(--brand-red);
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(221, 43, 28, 0.3);
+}
+
+body.backdrop-dark .focus-pill-btn {
+  color: var(--slate-300);
+}
+
+body.backdrop-dark .focus-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+body.backdrop-dark .focus-pill-btn.active {
+  background: var(--brand-red);
+  color: #FFFFFF !important;
+}
+
+.zoom-btn {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: var(--slate-700);
+}
+
+.zoom-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--brand-red);
+}
+
+body.backdrop-dark .zoom-btn {
+  color: var(--slate-300);
+}
+
+body.backdrop-dark .zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.zoom-level-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--slate-600);
+  min-width: 38px;
+  text-align: center;
+  user-select: none;
+}
+
+body.backdrop-dark .zoom-level-badge {
+  color: var(--slate-300);
 }

@@ -749,6 +749,7 @@
   let gltfLoaderInstance = null;
   const loadedCADGeometries = {};
   let isDragging = false;
+  let isPanning = false;
   let isDraggingSlider = false;
   let startX = 0;
   let startY = 0;
@@ -1351,16 +1352,25 @@
   /**
    * Applies the calculated 3D transformation matrix and synchronizes all HUDs
    */
+  function updateFocusButtonStates() {
+    if (!el.btnFocusTop || !el.btnFocusMid || !el.btnFocusBase) return;
+    el.btnFocusTop.classList.toggle('active', currentFocusY > 2.0);
+    el.btnFocusBase.classList.toggle('active', currentFocusY < -2.0);
+    el.btnFocusMid.classList.toggle('active', Math.abs(currentFocusY) <= 2.0);
+  }
+
   function applyStageTransform() {
-    // 1. Clamp pitch and scale limits
-    rotX = Math.max(-15, Math.min(35, rotX));
-    zoom = Math.max(0.8, Math.min(2.5, zoom));
+    // 1. Expanded pitch limits: allow full top-down inspection (+88°) and bottom-up inspection (-88°)
+    rotX = Math.max(-88, Math.min(88, rotX));
+    zoom = Math.max(0.75, Math.min(3.0, zoom));
+    currentFocusY = Math.max(-8.5, Math.min(8.5, currentFocusY));
 
     // 2. Normalize 0-360 range for display and scrubber
     const normalizedY = ((rotY % 360) + 360) % 360;
 
     // 3. Update REAL 3D WebGL Mesh Rotation and Camera Distance
     if (meshGroup) {
+      meshGroup.rotation.order = 'YXZ';
       meshGroup.rotation.y = (rotY * Math.PI) / 180;
       meshGroup.rotation.x = (rotX * Math.PI) / 180;
       meshGroup.position.y = -currentFocusY;
@@ -1371,8 +1381,12 @@
 
     // 4. Realistic 3D Turntable Base Ring tilt and rotation
     if (el.turntableFloorRing) {
-      el.turntableFloorRing.style.transform = `perspective(800px) rotateX(${62 + rotX * 0.35}deg) rotateZ(${-rotY}deg) scale(${Math.min(1.25, Math.max(0.85, zoom * 0.95))})`;
+      const clampedTilt = Math.max(-30, Math.min(55, rotX));
+      el.turntableFloorRing.style.transform = `perspective(800px) rotateX(${62 + clampedTilt * 0.35}deg) rotateZ(${-rotY}deg) scale(${Math.min(1.25, Math.max(0.85, zoom * 0.95))})`;
+      el.turntableFloorRing.style.opacity = Math.abs(rotX) > 75 ? '0.15' : '0.85';
     }
+
+    updateFocusButtonStates();
 
     // 5. Synchronize 360 Orbit Degree Badge
     if (el.orbitDegVal) {
@@ -1472,6 +1486,7 @@
       stopAutoSpin();
       cancelInertia();
 
+      isPanning = (e.button === 2 || e.button === 1 || e.shiftKey);
       startX = e.clientX;
       startY = e.clientY;
       startRotY = rotY;
@@ -1494,13 +1509,24 @@
       const dx = e.clientX - startX;
       const dy = e.clientY - startY;
 
-      // Sensitivity: 0.52 deg per pixel for responsive, natural control
+      if (isPanning) {
+        const stepDy = e.clientY - lastMoveY;
+        currentFocusY -= (stepDy * 0.038) / zoom;
+        currentFocusY = Math.max(-8.5, Math.min(8.5, currentFocusY));
+        lastMoveX = e.clientX;
+        lastMoveY = e.clientY;
+        lastMoveTime = now;
+        applyStageTransform();
+        return;
+      }
+
+      // Responsive, full-range 360° rotational sensitivity
       const newRotY = startRotY + dx * 0.52;
-      const newRotX = startRotX - dy * 0.32;
+      const newRotX = startRotX - dy * 0.40;
 
       // Instant velocity tracking for momentum release
       velocityRotY = ((e.clientX - lastMoveX) * 0.52) / (dt / 16.6);
-      velocityRotX = (-(e.clientY - lastMoveY) * 0.32) / (dt / 16.6);
+      velocityRotX = (-(e.clientY - lastMoveY) * 0.40) / (dt / 16.6);
 
       lastMoveX = e.clientX;
       lastMoveY = e.clientY;
@@ -1514,6 +1540,7 @@
     const endPointerDrag = (e) => {
       if (!isDragging) return;
       isDragging = false;
+      isPanning = false;
       try {
         if (el.stageViewport.hasPointerCapture(e.pointerId)) {
           el.stageViewport.releasePointerCapture(e.pointerId);
@@ -1529,7 +1556,7 @@
     el.stageViewport.addEventListener('pointerup', endPointerDrag);
     el.stageViewport.addEventListener('pointercancel', endPointerDrag);
 
-    // Mouse Wheel Zoom
+    // Mouse Wheel Zoom with Cursor-Directed Focus
     el.stageViewport.addEventListener('wheel', (e) => {
       if (isComparing) return;
       e.preventDefault();
@@ -1537,9 +1564,28 @@
       stopAutoSpin();
 
       const delta = -e.deltaY * 0.0018;
-      zoom = Math.max(0.8, Math.min(2.5, zoom + delta));
+      const newZoom = Math.max(0.75, Math.min(3.0, zoom + delta));
+
+      // Cursor-targeted zoom: when zooming in towards top/bottom, guide focus
+      const rect = el.stageViewport.getBoundingClientRect();
+      const mouseYNorm = (e.clientY - rect.top) / rect.height; // 0.0 (top) to 1.0 (bottom)
+      if (delta > 0 && newZoom > 1.1) {
+        const targetFocus = (0.5 - mouseYNorm) * 12.0;
+        currentFocusY += (targetFocus - currentFocusY) * 0.25;
+        currentFocusY = Math.max(-8.5, Math.min(8.5, currentFocusY));
+      } else if (newZoom <= 1.05) {
+        currentFocusY += (0 - currentFocusY) * 0.25;
+        if (Math.abs(currentFocusY) < 0.1) currentFocusY = 0;
+      }
+
+      zoom = newZoom;
       applyStageTransform();
     }, { passive: false });
+
+    // Prevent context menu on right click so right-drag pan works cleanly
+    el.stageViewport.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
 
     // Multi-touch Pinch to Zoom on Mobile
     el.stageViewport.addEventListener('touchstart', (e) => {
@@ -1658,25 +1704,25 @@
     });
   }
 
-  // --- CarWale-style Feature Focus Buttons ---
+  // --- Feature Focus Buttons (Top, Center, Base) ---
   if (el.btnFocusTop) {
     el.btnFocusTop.addEventListener('click', () => {
-      smoothTransitionTo(rotY, 15, 2.1, 450, 5.2);
-      showToast('Focusing on Top Collar & Alignment Flange');
+      smoothTransitionTo(rotY, 25, 2.2, 450, 6.5);
+      showToast('Inspecting Top Collar & Rim Opening');
     });
   }
 
   if (el.btnFocusMid) {
     el.btnFocusMid.addEventListener('click', () => {
-      smoothTransitionTo(rotY, 2, 1.85, 450, 0);
-      showToast('Focusing on Perforation Grid / Lattice');
+      smoothTransitionTo(rotY, 0, 1.85, 450, 0);
+      showToast('Inspecting Center Lattice & Perforations');
     });
   }
 
   if (el.btnFocusBase) {
     el.btnFocusBase.addEventListener('click', () => {
-      smoothTransitionTo(rotY, -10, 2.1, 450, -5.2);
-      showToast('Focusing on Base Driving Ring & Stacking Grooves');
+      smoothTransitionTo(rotY, -20, 2.2, 450, -6.5);
+      showToast('Inspecting Base Driving Ring & Skirt');
     });
   }
 

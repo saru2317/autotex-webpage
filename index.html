@@ -75,12 +75,40 @@
           <!-- The Render Stage Container -->
           <div class="viewport-stage" id="stage-viewport">
             
-            <!-- Floating Reset View Control -->
+            <!-- Floating Inspection Toolbar (Reset, Focus Top/Center/Base, Zoom) -->
             <div class="stage-floating-toolbar stage-reset-bar">
-              <button id="btn-reset-view" class="tool-btn reset-single-btn" title="Reset 360° Angle and Zoom">
-                <span class="tool-icon">↺</span>
-                <span class="tool-label">Reset View</span>
-              </button>
+              <div class="stage-tool-group">
+                <button id="btn-reset-view" class="tool-btn reset-single-btn" title="Reset 360° Angle and Zoom">
+                  <span class="tool-icon">↺</span>
+                  <span class="tool-label">Reset</span>
+                </button>
+              </div>
+
+              <div class="stage-tool-divider"></div>
+
+              <div class="stage-tool-group" role="group" aria-label="Feature Inspection Focus">
+                <button id="btn-focus-top" class="tool-btn focus-pill-btn" title="Focus and inspect Top Rim">
+                  <span class="tool-label">Top</span>
+                </button>
+                <button id="btn-focus-mid" class="tool-btn focus-pill-btn active" title="Focus and inspect Center Body">
+                  <span class="tool-label">Center</span>
+                </button>
+                <button id="btn-focus-base" class="tool-btn focus-pill-btn" title="Focus and inspect Bottom Base">
+                  <span class="tool-label">Base</span>
+                </button>
+              </div>
+
+              <div class="stage-tool-divider"></div>
+
+              <div class="stage-tool-group" role="group" aria-label="Zoom Controls">
+                <button id="btn-zoom-in" class="tool-btn zoom-btn" title="Zoom In (+)">
+                  <span class="tool-icon">+</span>
+                </button>
+                <span class="zoom-level-badge" id="zoom-badge">100%</span>
+                <button id="btn-zoom-out" class="tool-btn zoom-btn" title="Zoom Out (−)">
+                  <span class="tool-icon">−</span>
+                </button>
+              </div>
             </div>
 
             <!-- Single Stage 360° Viewport -->
