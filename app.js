@@ -777,9 +777,10 @@
     scene = new THREE.Scene();
 
     // 2. Camera (38° field of view for natural, non-distorted perspective)
-    const rect = el.stageSingle.getBoundingClientRect();
-    const width = rect.width || el.stageViewport.clientWidth || 600;
-    const height = Math.max(450, rect.height || 480);
+    const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || (el.stageViewport && el.stageViewport.classList.contains('is-fullscreen')));
+    const rect = el.stageSingle ? el.stageSingle.getBoundingClientRect() : { width: 0, height: 0 };
+    const width = isFS ? window.innerWidth : (rect.width || (el.stageSingle && el.stageSingle.clientWidth) || (el.stageViewport && el.stageViewport.clientWidth) || 480);
+    const height = isFS ? window.innerHeight : (rect.height || (el.stageSingle && el.stageSingle.clientHeight) || (el.stageViewport && el.stageViewport.clientHeight) || 440);
 
     camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 1000);
     camera.position.set(0, 0, 36);
@@ -793,7 +794,7 @@
         powerPreference: 'high-performance'
       });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-      renderer.setSize(width, height);
+      renderer.setSize(width, height, false);
       renderer.outputEncoding = THREE.sRGBEncoding;
       renderer.localClippingEnabled = false;
 
@@ -867,16 +868,28 @@
     renderLoop();
 
     window.addEventListener('resize', onWindowResize);
+
+    // Automatic layout observer: keeps WebGL buffer & camera aspect 100% synchronized
+    // with container bounds as CSS Grid, web fonts, and product tabs settle
+    if (window.ResizeObserver && el.stageSingle) {
+      const resizeObserver = new ResizeObserver(() => {
+        onWindowResize();
+      });
+      resizeObserver.observe(el.stageSingle);
+      if (el.stageViewport) resizeObserver.observe(el.stageViewport);
+    }
   }
 
   function onWindowResize() {
     if (!renderer || !camera || !el.stageSingle) return;
     const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || (el.stageViewport && el.stageViewport.classList.contains('is-fullscreen')));
-    const width = isFS ? window.innerWidth : (el.stageSingle.clientWidth || el.stageViewport.clientWidth || 600);
-    const height = isFS ? window.innerHeight : Math.max(450, el.stageSingle.clientHeight || 480);
+    const rect = el.stageSingle.getBoundingClientRect();
+    const width = isFS ? window.innerWidth : (rect.width || el.stageSingle.clientWidth || (el.stageViewport && el.stageViewport.clientWidth) || 480);
+    const height = isFS ? window.innerHeight : (rect.height || el.stageSingle.clientHeight || (el.stageViewport && el.stageViewport.clientHeight) || 440);
+    if (width <= 10 || height <= 10) return;
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
+    renderer.setSize(width, height, false);
   }
 
   /**
@@ -1108,6 +1121,8 @@
           }
         });
         meshGroup.add(cadClone);
+        applyStageTransform();
+        onWindowResize();
         return;
       } else if (window.AUTOTEX_CAD_BUNDLE && window.AUTOTEX_CAD_BUNDLE[modelKey]) {
         // Instant in-memory parse from offline bundle (Works on file:/// with ZERO CORS restrictions!)
@@ -1128,6 +1143,8 @@
             loadedCADGeometries[modelKey] = cadRoot;
             if (currentModelKey === modelKey) {
               update3DProduct(modelKey, hexColor);
+              applyStageTransform();
+              onWindowResize();
             }
           }, (err) => {
             console.warn('CAD bundle parse error, falling back:', err);
@@ -2066,5 +2083,32 @@ MANUFACTURER CONTACT:
 
   initThreeJS();
   updateStudio();
+
+  // Lifecycle synchronization: ensure WebGL view is perfectly centered & proportioned
+  // on initial page open without requiring manual window minimize/maximize
+  onWindowResize();
+  applyStageTransform();
+  requestAnimationFrame(() => {
+    onWindowResize();
+    applyStageTransform();
+  });
+  setTimeout(() => {
+    onWindowResize();
+    applyStageTransform();
+  }, 50);
+  setTimeout(() => {
+    onWindowResize();
+    applyStageTransform();
+  }, 200);
+  window.addEventListener('load', () => {
+    onWindowResize();
+    applyStageTransform();
+  });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      onWindowResize();
+      applyStageTransform();
+    });
+  }
 
 })();
